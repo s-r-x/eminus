@@ -1,0 +1,171 @@
+body.EminusGlobal {
+  &--dragging {
+    cursor: grabbing;
+  }
+}
+.Eminus {
+  --track-color: gray;
+  --control-color: deeppink;
+  --progress-color: deeppink;
+  --mark-color: gray;
+  --label-color: black;
+  --disabled-color: gray;
+  --tooltip-color: gray;
+  --tooltip-text-color: white;
+  --mark-color-active: deeppink;
+
+  --progress-size: 2px;
+  --control-size: 16px;
+  --mark-size: 8px;
+  --root-height: var(--control-size);
+  --mark-label-offset: var(--control-size);
+  --tooltip-offset: var(--control-size);
+
+  position: relative;
+  height: var(--root-height);
+
+
+  &-track {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 100%;
+    height: var(--progress-size);
+    background-color: var(--track-color);
+    overflow: hidden;
+    &-progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 50%;
+      background-color: var(--progress-color);
+    }
+  }
+
+  &-control {
+    box-sizing: border-box;
+    width: var(--control-size);
+    height: var(--control-size);
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    touch-action: pan-x;
+    border-radius: 50%;
+    background: var(--control-color);
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 3px rgb(233 90 99 / 50%);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-mark {
+    cursor: pointer;
+    &-value {
+      box-sizing: border-box;
+      position: absolute;
+      width: var(--mark-size);
+      height: var(--mark-size);
+      border-radius: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--mark-color);
+    }
+    &-label {
+      position: absolute;
+      top: calc(50% + var(--mark-label-offset));
+      transform: translate(-50%, -50%);
+      user-select: none;
+      color: var(--label-color);
+      font-size: 14px;
+      opacity: 0.4;
+    }
+    &--active & {
+      &-label {
+        opacity: 1;
+      }
+      &-value {
+        background-color: var(--mark-color-active);
+      }
+    }
+  }
+
+  &-tooltip {
+    position: absolute;
+    top: calc(50% - var(--tooltip-offset));
+    transform: translate(-50%, -100%);
+    padding: 5px;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--tooltip-text-color);
+    pointer-events: none;
+    background: var(--tooltip-color);
+    border-radius: 7px;
+    &::after {
+      --width: 5px;
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 1px;
+      transform: translate(-50%, 100%);
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: var(--width) var(--width) 0 var(--width);
+      border-color: var(--tooltip-color) transparent transparent transparent;
+    }
+  }
+
+
+  &--vertical {
+    --root-height: 500px;
+    width: var(--control-size);
+  }
+  &--vertical & {
+    &-track {
+      width: var(--progress-size);
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+      &-progress {
+        width: 100%;
+      }
+    }
+    &-control {
+      left: 50%;
+    }
+    &-mark {
+      &-value {
+        left: 50%;
+      }
+      &-label {
+        left: calc(100% + var(--mark-label-offset));
+        vertical-align: middle;
+      }
+    }
+    &-tooltip {
+      transform: translate(-100%, -50%);
+      left: calc(50% - var(--tooltip-offset));
+      &::after {
+        left: 100%;
+        top: 50%;
+        bottom: auto;
+        transform: translate(-25%, -50%) rotate(-90deg);
+      }
+    }
+  }
+  &--disabled {
+    pointer-events: none;
+    --mark-color: var(--disabled-color);
+    --mark-color-active: var(--disabled-color);
+    --progress-color: var(--disabled-color);
+    --track-color: var(--disabled-color);
+    --control-color: var(--disabled-color);
+    --label-color: var(--disabled-color);
+  }
+}
