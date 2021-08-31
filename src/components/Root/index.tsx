@@ -67,9 +67,13 @@ class Eminus extends Component<Props, State> {
     this.moveControl(value, nearest);
     this.$focusControl(nearest);
   }
-  onControlMouseDown = (activeIdx: number) => {
-    const value = this.values[activeIdx];
-    this.handleMouseDown(value);
+  onControlMouseDown = (idx: number) => {
+    const value = this.values[idx];
+    const isDeadLock =
+      this.props.disableCross &&
+      value === this.props.min &&
+      this.values.some((v, otherIdx) => v === value && otherIdx < idx);
+    this.handleMouseDown(isDeadLock ? value + 1 : value);
   };
   onRootMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
@@ -98,6 +102,9 @@ class Eminus extends Component<Props, State> {
     this.moveControl(newValue, this.mouseMoveState.activeIdx);
   };
   onMouseUp = () => {
+    if (this.props.onComplete) {
+      this.props.onComplete(this.mouseMoveState.values);
+    }
     this.mouseMoveState.activeIdx = -1;
     this.mouseMoveState.values = [];
     this.setState({

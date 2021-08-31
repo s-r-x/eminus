@@ -20,7 +20,7 @@ const ariaValueTextFormatter: Props['ariaValueTextFormatter'] = value =>
   `aria text: ${value}`;
 const markLabelFormatter: Props['markLabelFormatter'] = v => v;
 const Root = () => {
-  const [value, setValue] = useState([500, 100, 550]);
+  const [value, setValue] = useState([0, 0, 0]);
   return (
     <div className="root">
       <div className="inner">
