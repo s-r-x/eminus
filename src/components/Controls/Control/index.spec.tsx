@@ -12,7 +12,7 @@ describe('Control', () => {
       idx: 0,
       onBlur: jest.fn(),
       onFocus: jest.fn(),
-      onMouseDown: jest.fn(),
+      onPointerDown: jest.fn(),
       onMouseEnter: jest.fn(),
       onMouseLeave: jest.fn(),
       ariaLabel: 'label',
@@ -47,11 +47,14 @@ describe('Control', () => {
     expect(props.onBlur).toBeCalledWith(expect.anything(), props.idx);
 
     fireEvent.mouseDown(ctrl);
-    expect(props.onMouseDown).toBeCalledWith(props.idx);
+    expect(props.onPointerDown).toBeCalledWith(expect.anything(), props.idx);
 
     fireEvent.touchStart(ctrl);
-    expect(props.onMouseDown).toBeCalledTimes(2);
-    expect(props.onMouseDown).toHaveBeenLastCalledWith(props.idx);
+    expect(props.onPointerDown).toBeCalledTimes(2);
+    expect(props.onPointerDown).toHaveBeenLastCalledWith(
+      expect.anything(),
+      props.idx
+    );
 
     fireEvent.mouseEnter(ctrl);
     expect(props.onMouseEnter).toBeCalledWith(props.idx);

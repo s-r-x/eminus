@@ -10,7 +10,11 @@ import { Range } from '../../typings/shared';
 import Controls from '../Controls';
 import Tooltip from '../Tooltip';
 import { mapNumberToPercent } from '../../utils/map-number';
-import { ControlBlurFn, ControlFocusFn } from '../../typings/event-fns';
+import {
+  ControlBlurFn,
+  ControlFocusFn,
+  PointerDownFn,
+} from '../../typings/event-fns';
 import { sortArray } from '../../utils/sort-array';
 import memoize from 'memoize-one';
 import { isNil } from '../../utils/is-nil';
@@ -67,14 +71,6 @@ class Eminus extends Component<Props, State> {
     this.moveControl(value, nearest);
     this.$focusControl(nearest);
   }
-  onControlMouseDown = (idx: number) => {
-    const value = this.values[idx];
-    const isDeadLock =
-      this.props.disableCross &&
-      value === this.props.min &&
-      this.values.some((v, otherIdx) => v === value && otherIdx < idx);
-    this.handleMouseDown(isDeadLock ? value + 1 : value);
-  };
   onRootMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     const point = extractPointerCoords(e);
@@ -117,6 +113,17 @@ class Eminus extends Component<Props, State> {
     window.removeEventListener('mouseup', this.onMouseUp);
     window.removeEventListener('touchend', this.onMouseUp);
     document.body.classList.remove('EminusGlobal--dragging');
+  };
+  onControlPointerDown: PointerDownFn = (e, idx) => {
+    const value = this.values[idx];
+    const isDeadLock =
+      this.props.disableCross &&
+      value === this.props.min &&
+      this.values.some((v, otherIdx) => v === value && otherIdx < idx);
+    this.handleMouseDown(isDeadLock ? value + 1 : value);
+    if (this.props.onPointerDown) {
+      this.props.onPointerDown(e, idx);
+    }
   };
   onControlMouseEnter = (idx: number) => {
     if (this.state.hoverIdx === -1) {
@@ -344,7 +351,7 @@ class Eminus extends Component<Props, State> {
           vertical={props.vertical}
           disabled={props.disabled}
           step={props.step}
-          onMouseDown={this.onControlMouseDown}
+          onPointerDown={this.onControlPointerDown}
           onMouseEnter={this.onControlMouseEnter}
           onMouseLeave={this.onControlMouseLeave}
           onFocus={this.onControlFocus}

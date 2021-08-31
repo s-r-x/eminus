@@ -4,6 +4,7 @@ import {
   ControlFocusFn,
   OnCompleteFn,
   OnChangeFn,
+  PointerDownFn,
 } from './event-fns';
 
 export type MarkLabel = string | number;
@@ -24,6 +25,7 @@ export type RootProps = {
   onComplete?: OnCompleteFn;
   onBlur?: ControlBlurFn;
   onFocus?: ControlFocusFn;
+  onPointerDown?: PointerDownFn;
   marks: Mark[];
   minDist?: number;
   markLabelFormatter?: MarkLabelFormatter;

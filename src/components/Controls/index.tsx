@@ -1,5 +1,9 @@
 import React from 'react';
-import { ControlBlurFn, ControlFocusFn } from '../../typings/event-fns';
+import {
+  ControlBlurFn,
+  ControlFocusFn,
+  PointerDownFn,
+} from '../../typings/event-fns';
 import { RootProps } from '../../typings/root-props';
 import Control from './Control';
 
@@ -17,9 +21,9 @@ type Props = Pick<
 > & {
   activeIdx: number;
   isDragging: boolean;
-  onMouseDown: (idx: number) => void;
   onMouseEnter: (idx: number) => void;
   onMouseLeave: () => void;
+  onPointerDown: PointerDownFn;
   onBlur: ControlBlurFn;
   onFocus: ControlFocusFn;
   values: number[];
@@ -47,7 +51,7 @@ const Controls = (props: Props) => {
           key={idx}
           onBlur={props.onBlur}
           onFocus={props.onFocus}
-          onMouseDown={props.onMouseDown}
+          onPointerDown={props.onPointerDown}
           onMouseEnter={props.onMouseEnter}
           onMouseLeave={props.onMouseLeave}
         />

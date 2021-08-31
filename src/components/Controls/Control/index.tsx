@@ -1,5 +1,9 @@
 import React, { PureComponent } from 'react';
-import { ControlBlurFn, ControlFocusFn } from '../../../typings/event-fns';
+import {
+  ControlBlurFn,
+  ControlFocusFn,
+  PointerDownFn,
+} from '../../../typings/event-fns';
 import { RootProps } from '../../../typings/root-props';
 import { mapNumberToPercent } from '../../../utils/map-number';
 
@@ -9,7 +13,7 @@ export type Props = Pick<RootProps, 'min' | 'max' | 'step' | 'vertical'> & {
   disabled?: boolean;
   onBlur: ControlBlurFn;
   onFocus: ControlFocusFn;
-  onMouseDown: (idx: number) => void;
+  onPointerDown: PointerDownFn;
   onMouseEnter: (idx: number) => void;
   onMouseLeave: () => void;
   ariaLabel?: string;
@@ -32,7 +36,7 @@ class Control extends PureComponent<Props> {
   onMouseDown = (e: React.TouchEvent | React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    this.props.onMouseDown(this.props.idx);
+    this.props.onPointerDown(e, this.props.idx);
   };
   render() {
     const { props } = this;
