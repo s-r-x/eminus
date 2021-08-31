@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 const Component = () => <div role="button">42</div>;
 
-test('test', () => {
+test.skip('test', () => {
   render(<Component />);
 
   const btn = screen.getByRole('button');

@@ -1,14 +1,11 @@
 import React, { PureComponent } from 'react';
-import { ControlBlurFn, ControlFocusFn } from '../../typings/event-fns';
-import { mapNumberToPercent } from '../../utils/map-number';
+import { ControlBlurFn, ControlFocusFn } from '../../../typings/event-fns';
+import { RootProps } from '../../../typings/root-props';
+import { mapNumberToPercent } from '../../../utils/map-number';
 
-type Props = {
+export type Props = Pick<RootProps, 'min' | 'max' | 'step' | 'vertical'> & {
   value: number;
-  min: number;
-  max: number;
-  step: number;
   idx: number;
-  vertical?: boolean;
   disabled?: boolean;
   onBlur: ControlBlurFn;
   onFocus: ControlFocusFn;
@@ -19,7 +16,7 @@ type Props = {
   ariaLabelledBy?: string;
   ariaDescribedBy?: string;
   ariaValueText?: string;
-  isDragging: boolean;
+  isDragging?: boolean;
 };
 
 class Control extends PureComponent<Props> {
@@ -49,7 +46,7 @@ class Control extends PureComponent<Props> {
         aria-valuemin={props.min}
         aria-valuemax={props.max}
         aria-valuenow={props.value}
-        aria-orientation="horizontal"
+        aria-orientation={props.vertical ? 'vertical' : 'horizontal'}
         onTouchStart={this.onMouseDown}
         onMouseDown={this.onMouseDown}
         onFocus={this.onFocus}
