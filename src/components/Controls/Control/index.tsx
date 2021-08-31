@@ -5,6 +5,7 @@ import {
   PointerDownFn,
 } from '../../../typings/event-fns';
 import { RootProps } from '../../../typings/root-props';
+import { clamp } from '../../../utils/clamp';
 import { mapNumberToPercent } from '../../../utils/map-number';
 
 export type Props = Pick<RootProps, 'min' | 'max' | 'step' | 'vertical'> & {
@@ -33,13 +34,16 @@ class Control extends PureComponent<Props> {
   onMouseEnter = () => {
     this.props.onMouseEnter(this.props.idx);
   };
-  onMouseDown = (e: React.TouchEvent | React.MouseEvent) => {
+  onPointerDown = (e: React.TouchEvent | React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     this.props.onPointerDown(e, this.props.idx);
   };
+  get value(): number {
+    return clamp(this.props.value, this.props.min, this.props.max);
+  }
   render() {
-    const { props } = this;
+    const { props, value } = this;
     return (
       <div
         aria-valuetext={props.ariaValueText}
@@ -49,17 +53,17 @@ class Control extends PureComponent<Props> {
         aria-describedby={props.ariaDescribedBy}
         aria-valuemin={props.min}
         aria-valuemax={props.max}
-        aria-valuenow={props.value}
+        aria-valuenow={value}
         aria-orientation={props.vertical ? 'vertical' : 'horizontal'}
-        onTouchStart={this.onMouseDown}
-        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onPointerDown}
+        onMouseDown={this.onPointerDown}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
         style={{
           [props.vertical ? 'top' : 'left']:
-            mapNumberToPercent(props.value, props.min, props.max) + '%',
+            mapNumberToPercent(value, props.min, props.max) + '%',
           cursor: props.isDragging ? 'inherit' : 'grab',
         }}
         data-idx={props.idx}
