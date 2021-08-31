@@ -11,5 +11,8 @@ check-types:
 storybook:
 	npm run storybook
 storybook.build:
-	npm run build-storybook
-
+	npm run storybook.build
+test:
+	npm run test
+test.watch:
+	npm run test.watch
