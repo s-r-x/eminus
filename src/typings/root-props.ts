@@ -17,7 +17,7 @@ export type MarkLabelFormatter = (
 export type TooltipFormatter = (
   value: number
 ) => string | number | React.ReactElement;
-export type AriaValueTextFormatter = (value: number) => string;
+export type AriaValueTextFormatter = (value: number, idx: number) => string;
 
 export type RootProps = {
   value: number[];
@@ -36,7 +36,7 @@ export type RootProps = {
   max: number;
   disableTrack?: boolean;
   disabled?: boolean;
-  className?: boolean;
+  className?: string;
   style?: CSSProperties;
   ariaLabel: string[];
   ariaLabelledBy: string[];

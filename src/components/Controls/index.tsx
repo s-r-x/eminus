@@ -39,7 +39,7 @@ const Controls = (props: Props) => {
           ariaLabelledBy={props.ariaLabelledBy[idx]}
           ariaDescribedBy={props.ariaDescribedBy[idx]}
           ariaValueText={
-            props.ariaValueTextFormatter && props.ariaValueTextFormatter(n)
+            props.ariaValueTextFormatter && props.ariaValueTextFormatter(n, idx)
           }
           isDragging={props.isDragging && props.activeIdx === idx}
           disabled={props.disabled}
