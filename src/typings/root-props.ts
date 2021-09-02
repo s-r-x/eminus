@@ -45,3 +45,7 @@ export type RootProps = {
   tooltipFormatter?: TooltipFormatter;
   hideTooltip?: boolean;
 };
+export type UncontrolledRootProps = Omit<RootProps, 'value' | 'onChange'> & {
+  defaultValue: number[];
+  onChange?: OnChangeFn;
+};

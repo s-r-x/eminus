@@ -29,8 +29,7 @@ type State = {
 type Props = RootProps;
 
 class Eminus extends Component<Props, State> {
-  static defaultProps: Omit<Props, 'onChange'> = {
-    value: [],
+  static defaultProps: Omit<Props, 'value' | 'onChange'> = {
     min: 0,
     max: 100,
     step: 1,
@@ -67,6 +66,7 @@ class Eminus extends Component<Props, State> {
     window.addEventListener('touchmove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('touchend', this.onMouseUp);
+    console.log(document.body);
     document.body.classList.add('EminusGlobal--dragging');
     this.moveControl(value, nearest);
     this.$focusControl(nearest);
