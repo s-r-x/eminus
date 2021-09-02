@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from '../utils/mount';
 import { Uncontrolled as Eminus, Props } from '../../src';
 
-it('renders learn react link', () => {
+it('Base render', () => {
   const value = [1, 10];
   const ariaLabel: Props['ariaLabel'] = ['aria1', 'aria2'];
   const ariaLabelledBy: Props['ariaLabelledBy'] = [
@@ -58,7 +58,6 @@ it('renders learn react link', () => {
     expect($ctrl).to.have.attr('aria-valuemin', String(min));
     expect($ctrl).to.have.attr('aria-valuemax', String(max));
     expect($ctrl).to.have.attr('aria-labelledby', ariaLabelledBy[idx]);
-    expect($ctrl).to.have.attr('aria-describedby', ariaDescribedBy[idx]);
     expect($ctrl).to.have.attr('aria-describedby', ariaDescribedBy[idx]);
     expect($ctrl).to.have.attr('aria-valuetext', String(value[idx]));
   });
