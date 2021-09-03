@@ -20,6 +20,10 @@ export const mount = (jsx: React.ReactNode, opts?: MountOptions) => {
         .Eminus {
           width: 90%;
         }
+        .Eminus--vertical {
+          height: 90vh;
+          width: auto;
+        }
       `}
       </style>
       {jsx}
