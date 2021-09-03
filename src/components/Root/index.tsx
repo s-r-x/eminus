@@ -223,7 +223,7 @@ class Eminus extends Component<Props, State> {
     this.props.onChange(newValues);
   }
   moveControl(nextValue: number, idx: number) {
-    const { values } = this;
+    const { values, minDist } = this;
     const { disableCross } = this.props;
     const currentValue = values[idx];
     if (currentValue === nextValue) return;
@@ -236,11 +236,11 @@ class Eminus extends Component<Props, State> {
     const boundIdx = idx + dir;
     const potentialBound = { idx: idx + dir, value: values[boundIdx] };
     if (!isNil(potentialBound.value)) {
-      if (this.props.minDist) {
+      if (minDist) {
         if (dir === -1) {
-          potentialBound.value += this.props.minDist;
+          potentialBound.value += minDist;
         } else if (dir === 1) {
-          potentialBound.value -= this.props.minDist;
+          potentialBound.value -= minDist;
         }
       }
       if (dir === -1 && potentialBound.value >= nextValue) {
@@ -293,6 +293,12 @@ class Eminus extends Component<Props, State> {
       return this.mouseMoveState.values;
     }
     return this._values(this.props.value);
+  }
+  get minDist(): number {
+    if (!this.props.disableCross || !this.props.minDist) {
+      return 0;
+    }
+    return this.props.minDist;
   }
   render() {
     const { props, state, tooltipIdx, tooltipValue, values } = this;
