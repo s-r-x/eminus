@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from '../utils/mount';
 import { Uncontrolled as Eminus, Props } from '../../src';
+import { $getRoot } from '../helpers';
 
 it('Base render', () => {
   const value = [1, 10];
@@ -41,29 +42,30 @@ it('Base render', () => {
       ariaValueTextFormatter={ariaValueTextFormatter}
     />
   );
-  const $root = cy.get('.Eminus');
-  $root.should('exist');
-  $root.should('not.have.class', 'Eminus--vertical');
-  $root.should('not.have.class', 'Eminus--disabled');
-  $root.should('have.class', customClass);
-  const $track = $root.get('.Eminus-track');
-  $track.should('exist');
-  $track.find('.Eminus-track-progress').should('exist');
-  const $ctrls = $root.get('.Eminus-control');
-  $ctrls.should('have.length', value.length);
-  $ctrls.each(($ctrl, idx) => {
-    expect($ctrl).to.have.attr('data-idx', String(idx));
-    expect($ctrl).to.have.attr('aria-valuenow', String(value[idx]));
-    expect($ctrl).to.have.attr('aria-label', ariaLabel[idx]);
-    expect($ctrl).to.have.attr('aria-valuemin', String(min));
-    expect($ctrl).to.have.attr('aria-valuemax', String(max));
-    expect($ctrl).to.have.attr('aria-labelledby', ariaLabelledBy[idx]);
-    expect($ctrl).to.have.attr('aria-describedby', ariaDescribedBy[idx]);
-    expect($ctrl).to.have.attr('aria-valuetext', String(value[idx]));
-    expect($ctrl).to.have.attr('tabindex', '0');
-  });
-  const $marks = $root.get('.Eminus-mark');
-  $marks.each(($mark, idx) => {
+  const $root = $getRoot()
+    .should('exist')
+    .should('not.have.class', 'Eminus--vertical')
+    .should('not.have.class', 'Eminus--disabled')
+    .should('have.class', customClass)
+    .get('.Eminus-track')
+    .should('exist')
+    .find('.Eminus-track-progress')
+    .should('exist');
+  $getRoot()
+    .get('.Eminus-control')
+    .should('have.length', value.length)
+    .each(($ctrl, idx) => {
+      expect($ctrl).to.have.attr('data-idx', String(idx));
+      expect($ctrl).to.have.attr('aria-valuenow', String(value[idx]));
+      expect($ctrl).to.have.attr('aria-label', ariaLabel[idx]);
+      expect($ctrl).to.have.attr('aria-valuemin', String(min));
+      expect($ctrl).to.have.attr('aria-valuemax', String(max));
+      expect($ctrl).to.have.attr('aria-labelledby', ariaLabelledBy[idx]);
+      expect($ctrl).to.have.attr('aria-describedby', ariaDescribedBy[idx]);
+      expect($ctrl).to.have.attr('aria-valuetext', String(value[idx]));
+      expect($ctrl).to.have.attr('tabindex', '0');
+    });
+  $root.get('.Eminus-mark').each(($mark, idx) => {
     const $label = $mark.find('.Eminus-mark-label');
     expect($label).to.have.text(marks[idx].label as string);
   });
