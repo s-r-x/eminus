@@ -60,6 +60,7 @@ it('Base render', () => {
     expect($ctrl).to.have.attr('aria-labelledby', ariaLabelledBy[idx]);
     expect($ctrl).to.have.attr('aria-describedby', ariaDescribedBy[idx]);
     expect($ctrl).to.have.attr('aria-valuetext', String(value[idx]));
+    expect($ctrl).to.have.attr('tabindex', '0');
   });
   const $marks = $root.get('.Eminus-mark');
   $marks.each(($mark, idx) => {
