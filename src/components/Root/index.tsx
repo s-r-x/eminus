@@ -66,7 +66,6 @@ class Eminus extends Component<Props, State> {
     window.addEventListener('touchmove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('touchend', this.onMouseUp);
-    console.log(document.body);
     document.body.classList.add('EminusGlobal--dragging');
     this.moveControl(value, nearest);
     this.$focusControl(nearest);
