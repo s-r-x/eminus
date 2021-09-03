@@ -339,6 +339,7 @@ class Eminus extends Component<Props, State> {
         )}
         {!props.hideTooltip && tooltipIdx !== -1 && (
           <Tooltip
+            value={tooltipValue}
             content={
               props.tooltipFormatter
                 ? props.tooltipFormatter(tooltipValue)
