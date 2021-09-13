@@ -114,12 +114,7 @@ class Eminus extends Component<Props, State> {
     document.body.classList.remove('EminusGlobal--dragging');
   };
   onControlPointerDown: PointerDownFn = (e, idx) => {
-    const value = this.values[idx];
-    const isDeadLock =
-      this.props.disableCross &&
-      value === this.props.min &&
-      this.values.some((v, otherIdx) => v === value && otherIdx < idx);
-    this.handleMouseDown(isDeadLock ? value + 1 : value);
+    this.handleMouseDown(this.values[idx]);
     if (this.props.onPointerDown) {
       this.props.onPointerDown(e, idx);
     }
@@ -231,10 +226,16 @@ class Eminus extends Component<Props, State> {
       return this._moveControl(nextValue, idx);
     }
     const dir = nextValue - currentValue > 0 ? 1 : -1;
-
+    const { isDeadLock, idxToSwitch: deadLockSwitchIdx } = this.genDeadLockMeta(
+      idx,
+      dir
+    );
     let bound = { idx: -1, value: 0 };
     const boundIdx = idx + dir;
-    const potentialBound = { idx: idx + dir, value: values[boundIdx] };
+    const potentialBound = {
+      idx: isDeadLock ? (deadLockSwitchIdx as number) : idx + dir,
+      value: values[boundIdx],
+    };
     if (!isNil(potentialBound.value)) {
       if (minDist) {
         if (dir === -1) {
@@ -250,7 +251,7 @@ class Eminus extends Component<Props, State> {
       }
     }
     if (bound.idx !== -1) {
-      if (disableCross) {
+      if (disableCross && !isDeadLock) {
         this._moveControl(bound.value, idx);
       } else {
         const newValues = [...values];
@@ -268,6 +269,45 @@ class Eminus extends Component<Props, State> {
       this._moveControl(nextValue, idx);
     }
   }
+  genDeadLockMeta(
+    idx: number,
+    dir: -1 | 1
+  ): {
+    isDeadLock: boolean;
+    idxToSwitch?: number;
+  } {
+    const { disableCross } = this.props;
+    const currentValue = this.values[idx];
+    const isCurrentAtMin = currentValue === this.props.min;
+    const isCurrentAtMax = currentValue === this.props.max;
+    const maybeDeadLock =
+      disableCross &&
+      ((dir === 1 && isCurrentAtMin) || (dir === -1 && isCurrentAtMax));
+    if (!maybeDeadLock) {
+      return { isDeadLock: false };
+    }
+    const switchCandidates = this.values
+      .map((value, idx) => ({
+        value,
+        idx,
+      }))
+      .filter(
+        d => d.value === currentValue && (dir === 1 ? d.idx > idx : d.idx < idx)
+      )
+      .map(({ idx }) => idx);
+    if (isEmpty(switchCandidates)) {
+      return { isDeadLock: false };
+    }
+    return {
+      isDeadLock: true,
+      idxToSwitch:
+        dir === 1
+          ? Math.max(...switchCandidates)
+          : Math.min(...switchCandidates),
+    };
+  }
+
+  // getters
   get activeIdx(): number {
     if (this.state.isDragging) {
       return this.mouseMoveState.activeIdx;
