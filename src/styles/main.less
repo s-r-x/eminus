@@ -5,14 +5,14 @@ body.EminusGlobal {
 }
 .Eminus {
   --track-color: gray;
-  --control-color: deeppink;
-  --progress-color: deeppink;
+  --control-color: #673ab7;
+  --progress-color: #673ab7;
   --mark-color: gray;
   --label-color: black;
   --disabled-color: gray;
   --tooltip-color: gray;
   --tooltip-text-color: white;
-  --mark-color-active: deeppink;
+  --mark-color-active: #673ab7;
 
   --progress-size: 2px;
   --control-size: 16px;
@@ -23,7 +23,6 @@ body.EminusGlobal {
 
   position: relative;
   height: var(--root-height);
-
 
   &-track {
     position: absolute;
@@ -56,7 +55,7 @@ body.EminusGlobal {
     background: var(--control-color);
     &:hover,
     &:focus {
-      box-shadow: 0 0 0 3px rgb(233 90 99 / 50%);
+      box-shadow: 0 0 0 3px rgba(103, 58, 183, 0.5);
     }
     &:focus {
       outline: none;
@@ -119,7 +118,6 @@ body.EminusGlobal {
       border-color: var(--tooltip-color) transparent transparent transparent;
     }
   }
-
 
   &--vertical {
     --root-height: 500px;
