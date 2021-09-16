@@ -7,6 +7,7 @@ import {
   $getTooltip,
   triggerPointerMoveToValue,
 } from '../helpers';
+import { RootProps } from '../../src/typings/root-props';
 
 describe('Tooltips', () => {
   it('Should show tooltip on mouseenter and hide on mouseleave', () => {
@@ -48,5 +49,29 @@ describe('Tooltips', () => {
     mount(<Eminus defaultValue={[0]} step={25} hideTooltip />);
     $getFirstCtrl().focus().trigger('keydown', { key: 'ArrowRight' });
     $getTooltip().should('not.exist');
+  });
+  it('tooltipRenderer prop', () => {
+    const renderer: RootProps['tooltipRenderer'] = ({ style, value }) => {
+      return (
+        <div
+          className="my-tooltip"
+          style={{
+            ...style,
+            position: 'absolute',
+            background: 'deeppink',
+            padding: '10px',
+            color: 'white',
+            borderRadius: '7px',
+            top: 'calc(var(--root-height) + 5px)',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          {value}
+        </div>
+      );
+    };
+    mount(<Eminus defaultValue={[0]} step={25} tooltipRenderer={renderer} />);
+    $getFirstCtrl().focus().trigger('keydown', { key: 'ArrowRight' });
+    cy.get('.my-tooltip').should('exist').should('have.text', '25');
   });
 });

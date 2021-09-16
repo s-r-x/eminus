@@ -1,21 +1,29 @@
 import React from 'react';
 import { isNil } from '../../utils/is-nil';
-import { TooltipFormatter } from '../../typings/root-props';
+import { RootProps } from '../../typings/root-props';
+import { mapNumberToPercent } from '../../utils/map-number';
 
-type Props = {
-  style?: React.CSSProperties;
-  content?: ReturnType<TooltipFormatter>;
-  value?: number;
+type Props = Pick<
+  RootProps,
+  'vertical' | 'min' | 'max' | 'tooltipFormatter' | 'tooltipRenderer'
+> & {
+  value: number;
 };
 const Tooltip = (props: Props) => {
-  if (isNil(props.content) || props.content === '') return null;
+  const content = props.tooltipFormatter
+    ? props.tooltipFormatter(props.value)
+    : props.value;
+  if (isNil(content) || content === '') return null;
+  const style: React.CSSProperties = {
+    [props.vertical ? 'top' : 'left']:
+      mapNumberToPercent(props.value, props.min, props.max) + '%',
+  };
+  if (props.tooltipRenderer) {
+    return props.tooltipRenderer({ style, value: props.value });
+  }
   return (
-    <div
-      data-value={props.value}
-      style={props.style}
-      className="Eminus-tooltip"
-    >
-      {props.content}
+    <div data-value={props.value} style={style} className="Eminus-tooltip">
+      {content}
     </div>
   );
 };

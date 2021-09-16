@@ -9,7 +9,6 @@ import { isEmpty } from '../../utils/is-empty';
 import { Range } from '../../typings/shared';
 import Controls from '../Controls';
 import Tooltip from '../Tooltip';
-import { mapNumberToPercent } from '../../utils/map-number';
 import {
   ControlBlurFn,
   ControlFocusFn,
@@ -378,18 +377,16 @@ class Eminus extends Component<Props, State> {
           />
         )}
         {!props.hideTooltip && tooltipIdx !== -1 && (
-          <Tooltip
-            value={tooltipValue}
-            content={
-              props.tooltipFormatter
-                ? props.tooltipFormatter(tooltipValue)
-                : tooltipValue
-            }
-            style={{
-              [props.vertical ? 'top' : 'left']:
-                mapNumberToPercent(tooltipValue, props.min, props.max) + '%',
-            }}
-          />
+          <>
+            <Tooltip
+              value={tooltipValue}
+              tooltipFormatter={props.tooltipFormatter}
+              vertical={props.vertical}
+              tooltipRenderer={props.tooltipRenderer}
+              min={props.min}
+              max={props.max}
+            />
+          </>
         )}
         <Controls
           min={props.min}

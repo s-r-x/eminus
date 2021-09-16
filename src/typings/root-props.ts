@@ -18,6 +18,11 @@ export type TooltipFormatter = (
   value: number
 ) => string | number | React.ReactElement;
 export type AriaValueTextFormatter = (value: number, idx: number) => string;
+export type TooltipRendererArgs = {
+  style: CSSProperties;
+  value: number;
+};
+export type TooltipRenderer = (args: TooltipRendererArgs) => React.ReactElement;
 
 export type RootProps = {
   value: number[];
@@ -43,6 +48,7 @@ export type RootProps = {
   ariaDescribedBy: string[];
   ariaValueTextFormatter?: AriaValueTextFormatter;
   tooltipFormatter?: TooltipFormatter;
+  tooltipRenderer?: TooltipRenderer;
   hideTooltip?: boolean;
 };
 export type UncontrolledRootProps = Omit<RootProps, 'value' | 'onChange'> & {
