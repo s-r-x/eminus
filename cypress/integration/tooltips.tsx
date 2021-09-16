@@ -50,6 +50,20 @@ describe('Tooltips', () => {
     $getFirstCtrl().focus().trigger('keydown', { key: 'ArrowRight' });
     $getTooltip().should('not.exist');
   });
+  it('tooltipFormatter prop', () => {
+    mount(
+      <Eminus
+        defaultValue={[0]}
+        step={25}
+        tooltipFormatter={value => `${value}%`}
+      />
+    );
+    $getFirstCtrl().focus().trigger('keydown', { key: 'ArrowRight' });
+    $getTooltip()
+      .should('exist')
+      .should('have.attr', 'data-value', '25')
+      .should('have.text', '25%');
+  });
   it('tooltipRenderer prop', () => {
     const renderer: RootProps['tooltipRenderer'] = ({ style, value }) => {
       return (
@@ -59,10 +73,11 @@ describe('Tooltips', () => {
             ...style,
             position: 'absolute',
             background: 'deeppink',
-            padding: '10px',
+            padding: '5px 10px',
+            fontSize: '14px',
             color: 'white',
-            borderRadius: '7px',
-            top: 'calc(var(--root-height) + 5px)',
+            borderRadius: '4px',
+            top: 'calc(var(--root-height) + 7px)',
             transform: 'translateX(-50%)',
           }}
         >
@@ -73,5 +88,6 @@ describe('Tooltips', () => {
     mount(<Eminus defaultValue={[0]} step={25} tooltipRenderer={renderer} />);
     $getFirstCtrl().focus().trigger('keydown', { key: 'ArrowRight' });
     cy.get('.my-tooltip').should('exist').should('have.text', '25');
+    $getTooltip().should('not.exist');
   });
 });
