@@ -44,4 +44,9 @@ describe('Tooltips', () => {
     $getTooltip().should('exist').should('have.attr', 'data-value', '25');
     $getFirstCtrl().blur();
   });
+  it('Hide tooltip prop', () => {
+    mount(<Eminus defaultValue={[0]} step={25} hideTooltip />);
+    $getFirstCtrl().focus().trigger('keydown', { key: 'ArrowRight' });
+    $getTooltip().should('not.exist');
+  });
 });
