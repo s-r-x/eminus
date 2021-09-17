@@ -32,7 +32,5 @@ Playground.args = {
   min: 0,
   max: 100,
   step: 1,
-  marks: [0, 25, 50, 75, 100].map(value => ({
-    value,
-  })),
+  marks: [0, 25, 50, 75, 100],
 };

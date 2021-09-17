@@ -14,17 +14,20 @@ type Props = Pick<RootProps, 'min' | 'max' | 'vertical'> & {
   labelFormatter?: MarkLabelFormatter;
 };
 const Mark = (props: Props) => {
-  const x = mapNumberToPercent(props.mark.value, props.min, props.max);
+  const value = typeof props.mark === 'number' ? props.mark : props.mark.value;
+  const x = mapNumberToPercent(value, props.min, props.max);
   const sharedStyle: CSSProperties = {
     [props.vertical ? 'top' : 'left']: x + '%',
   };
   const onMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    props.onMouseDown(props.mark.value);
+    props.onMouseDown(value);
   };
   const label = props.labelFormatter
     ? props.labelFormatter(props.mark)
+    : typeof props.mark === 'number'
+    ? props.mark
     : props.mark.label || props.mark.value;
   return (
     <div

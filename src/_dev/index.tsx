@@ -18,7 +18,6 @@ const ariaDescribedBy: Props['ariaDescribedBy'] = [
 ];
 const ariaValueTextFormatter: Props['ariaValueTextFormatter'] = value =>
   `aria text: ${value}`;
-const markLabelFormatter: Props['markLabelFormatter'] = v => v;
 const Root = () => {
   const [value, setValue] = useState([0, 0, 0]);
   return (
@@ -30,7 +29,6 @@ const Root = () => {
           ariaLabelledBy={ariaLabelledBy}
           ariaDescribedBy={ariaDescribedBy}
           ariaValueTextFormatter={ariaValueTextFormatter}
-          markLabelFormatter={markLabelFormatter}
           marks={marks}
           onChange={setValue}
           value={value}

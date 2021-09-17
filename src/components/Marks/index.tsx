@@ -17,7 +17,10 @@ const Marks = (props: Props) => {
           vertical={props.vertical}
           labelFormatter={props.labelFormatter}
           onMouseDown={props.onMouseDown}
-          isActive={isInRange(mark.value, props.range)}
+          isActive={isInRange(
+            typeof mark === 'number' ? mark : mark.value,
+            props.range
+          )}
           key={idx}
           min={props.min}
           max={props.max}
