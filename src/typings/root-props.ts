@@ -10,8 +10,7 @@ import {
 export type MarkLabel = string | number;
 export type Mark = { value: number; label?: MarkLabel };
 export type MarkLabelFormatter = (
-  value: number,
-  label?: MarkLabel
+  mark: Mark
 ) => string | number | React.ReactElement;
 
 export type TooltipFormatter = (

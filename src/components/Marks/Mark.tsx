@@ -6,7 +6,6 @@ import type {
 } from '../../typings/root-props';
 import { mapNumberToPercent } from '../../utils/map-number';
 import clsx from 'clsx';
-import { isNil } from '../../utils/is-nil';
 
 type Props = Pick<RootProps, 'min' | 'max' | 'vertical'> & {
   mark: TMark;
@@ -24,6 +23,9 @@ const Mark = (props: Props) => {
     e.stopPropagation();
     props.onMouseDown(props.mark.value);
   };
+  const label = props.labelFormatter
+    ? props.labelFormatter(props.mark)
+    : props.mark.label || props.mark.value;
   return (
     <div
       className={clsx('Eminus-mark', props.isActive && 'Eminus-mark--active')}
@@ -31,13 +33,9 @@ const Mark = (props: Props) => {
       onMouseDown={onMouseDown}
     >
       <div style={sharedStyle} className="Eminus-mark-value" />
-      {!isNil(props.mark.label) && (
-        <div style={sharedStyle} className="Eminus-mark-label">
-          {props.labelFormatter
-            ? props.labelFormatter(props.mark.value, props.mark.label)
-            : props.mark.label}
-        </div>
-      )}
+      <div style={sharedStyle} className="Eminus-mark-label">
+        {label}
+      </div>
     </div>
   );
 };

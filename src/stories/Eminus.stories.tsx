@@ -34,6 +34,5 @@ Playground.args = {
   step: 1,
   marks: [0, 25, 50, 75, 100].map(value => ({
     value,
-    label: value + '%',
   })),
 };
