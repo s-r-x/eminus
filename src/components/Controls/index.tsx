@@ -41,7 +41,8 @@ const Controls = (props: Props) => {
           ariaValueText={
             props.ariaValueTextFormatter && props.ariaValueTextFormatter(n, idx)
           }
-          isDragging={props.isDragging && props.activeIdx === idx}
+          isDragging={props.isDragging}
+          isActive={props.activeIdx === idx}
           disabled={props.disabled}
           step={props.step}
           min={props.min}

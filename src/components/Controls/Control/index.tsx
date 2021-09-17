@@ -22,6 +22,7 @@ export type Props = Pick<RootProps, 'min' | 'max' | 'step' | 'vertical'> & {
   ariaDescribedBy?: string;
   ariaValueText?: string;
   isDragging?: boolean;
+  isActive: boolean;
 };
 
 class Control extends PureComponent<Props> {
@@ -64,7 +65,8 @@ class Control extends PureComponent<Props> {
         style={{
           [props.vertical ? 'top' : 'left']:
             mapNumberToPercent(value, props.min, props.max) + '%',
-          cursor: props.isDragging ? 'inherit' : 'grab',
+          pointerEvents: props.isDragging && !props.isActive ? 'none' : 'auto',
+          cursor: props.isDragging && props.isActive ? 'inherit' : 'grab',
         }}
         data-idx={props.idx}
         role="slider"
