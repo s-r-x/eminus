@@ -45,7 +45,7 @@ class Eminus extends Component<Props, State> {
     activeIdx: -1,
     hoverIdx: -1,
   };
-  // to deal with fast mousemoves
+  // deal with fast mousemoves
   mouseMoveState = {
     activeIdx: -1,
     values: [] as number[],
@@ -97,7 +97,7 @@ class Eminus extends Component<Props, State> {
   };
   onMouseUp = () => {
     if (this.props.onComplete) {
-      this.props.onComplete(this.mouseMoveState.values);
+      this.props.onComplete(this.value);
     }
     this.mouseMoveState.activeIdx = -1;
     this.mouseMoveState.values = [];

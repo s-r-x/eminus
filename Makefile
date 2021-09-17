@@ -15,7 +15,7 @@ storybook.build:
 test.unit:
 	npm run test.unit
 test.unit.watch:
-	npm run test.watch
+	npm run test.unit.watch
 test.browser:
 	npm run test.browser
 test.browser.dashboard:
