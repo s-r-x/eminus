@@ -6,6 +6,7 @@ import type {
 } from '../../typings/root-props';
 import { mapNumberToPercent } from '../../utils/map-number';
 import clsx from 'clsx';
+import { clamp } from '../../utils/clamp';
 
 type Props = Pick<RootProps, 'min' | 'max' | 'vertical'> & {
   mark: TMark;
@@ -17,7 +18,7 @@ const Mark = (props: Props) => {
   const value = typeof props.mark === 'number' ? props.mark : props.mark.value;
   const x = mapNumberToPercent(value, props.min, props.max);
   const sharedStyle: CSSProperties = {
-    [props.vertical ? 'top' : 'left']: x + '%',
+    [props.vertical ? 'top' : 'left']: clamp(x, 0, 100) + '%',
   };
   const onMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
