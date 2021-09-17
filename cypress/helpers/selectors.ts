@@ -7,3 +7,4 @@ export const $getCtrlByIdx = (idx: number | string) =>
 export const $getFirstCtrl = () => $getCtrl().first();
 export const $getLastCtrl = () => $getCtrl().last();
 export const $getTooltip = () => $get('.Eminus-tooltip');
+export const $getMarks = () => $get('.Eminus-mark');

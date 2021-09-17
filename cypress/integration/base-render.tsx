@@ -15,16 +15,6 @@ it('Base render', () => {
     'described-by-2',
   ];
   const customClass = 'custom-class';
-  const marks: Props['marks'] = [
-    {
-      value: 50,
-      label: 'one',
-    },
-    {
-      value: 100,
-      label: 'hundred',
-    },
-  ];
   const min = 0,
     max = 100;
   const ariaValueTextFormatter: Props['ariaValueTextFormatter'] = value =>
@@ -33,7 +23,6 @@ it('Base render', () => {
     <Eminus
       className={customClass}
       defaultValue={value}
-      marks={marks}
       min={min}
       max={max}
       ariaLabel={ariaLabel}
@@ -64,11 +53,5 @@ it('Base render', () => {
         .should('have.attr', 'aria-describedby', ariaDescribedBy[idx])
         .should('have.attr', 'aria-valuetext', String(value[idx]))
         .should('have.attr', 'tabindex', '0');
-    })
-    .get('.Eminus-mark')
-    .each(($mark, idx) => {
-      expect($mark.find('.Eminus-mark-label')).to.have.text(
-        marks[idx].label as string
-      );
     });
 });

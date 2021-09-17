@@ -7,7 +7,9 @@ import {
   PointerDownFn,
 } from './event-fns';
 
-export type Mark = { value: number; label?: string | number } | number;
+export type SimpleMark = number;
+export type EnhancedMark = { value: number; label?: string | number };
+export type Mark = SimpleMark | EnhancedMark;
 export type MarkLabelFormatter = (
   mark: Mark
 ) => string | number | React.ReactElement;
