@@ -5,7 +5,6 @@ import {
   PointerDownFn,
 } from '../../../typings/event-fns';
 import { RootProps } from '../../../typings/root-props';
-import { clamp } from '../../../utils/clamp';
 import { mapNumberToPercent } from '../../../utils/map-number';
 
 export type Props = Pick<RootProps, 'min' | 'max' | 'step' | 'vertical'> & {
@@ -41,7 +40,7 @@ class Control extends PureComponent<Props> {
     this.props.onPointerDown(e, this.props.idx);
   };
   get value(): number {
-    return clamp(this.props.value, this.props.min, this.props.max);
+    return this.props.value;
   }
   render() {
     const { props, value } = this;

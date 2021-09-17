@@ -15,8 +15,8 @@ import {
   PointerDownFn,
 } from '../../typings/event-fns';
 import { sortArray } from '../../utils/sort-array';
-import memoize from 'memoize-one';
 import { isNil } from '../../utils/is-nil';
+import { clamp } from '../../utils/clamp';
 
 type State = {
   isDragging: boolean;
@@ -53,10 +53,10 @@ class Eminus extends Component<Props, State> {
   rootRef = React.createRef<HTMLDivElement>();
   // events
   handleMouseDown(value: number) {
-    const nearest = findNearestNumberIdx(this.values, value);
+    const nearest = findNearestNumberIdx(this.value, value);
     if (nearest === -1) return;
     this.mouseMoveState.activeIdx = nearest;
-    this.mouseMoveState.values = this.values;
+    this.mouseMoveState.values = this.value;
     this.setState({
       activeIdx: nearest,
       isDragging: true,
@@ -113,7 +113,7 @@ class Eminus extends Component<Props, State> {
     document.body.classList.remove('EminusGlobal--dragging');
   };
   onControlPointerDown: PointerDownFn = (e, idx) => {
-    this.handleMouseDown(this.values[idx]);
+    this.handleMouseDown(this.value[idx]);
     if (this.props.onPointerDown) {
       this.props.onPointerDown(e, idx);
     }
@@ -160,7 +160,7 @@ class Eminus extends Component<Props, State> {
       return;
     }
     const { min, max, step } = this.props;
-    const value = this.values[idx];
+    const value = this.value[idx];
     if (key === 'ArrowLeft' || key === 'ArrowDown') {
       e.preventDefault();
       this.moveControl(Math.max(value - step, min), idx);
@@ -199,30 +199,34 @@ class Eminus extends Component<Props, State> {
       Math.round(((max - min) * Math.min(v / size, 1) + min) / step) * step
     );
   }
-  generateNewValues = (value: number, idx: number): number[] => {
-    const { values: currentValues } = this;
-    if (currentValues.length <= 1) {
+  generateNewValueAndCommit(value: number, idx: number) {
+    const currentValue = this.value[idx];
+    if (currentValue === value) return;
+    const newValue = this.generateNewValue(value, idx);
+    this.commitNewValue(newValue);
+  }
+  generateNewValue = (value: number, idx: number): number[] => {
+    const { value: currentValue } = this;
+    if (currentValue.length <= 1) {
       return [value];
     } else {
-      const newValues = [...currentValues];
-      newValues[idx] = value;
-      return newValues;
+      const newValue = [...currentValue];
+      newValue[idx] = value;
+      return newValue;
     }
   };
-  _moveControl(value: number, idx: number) {
-    const currentValue = this.values[idx];
-    if (currentValue === value) return;
-    const newValues = this.generateNewValues(value, idx);
-    this.mouseMoveState.values = newValues;
-    this.props.onChange(newValues);
+  commitNewValue(newValue: number[]) {
+    const normalized = this.normalizeValue(newValue);
+    this.mouseMoveState.values = normalized;
+    this.props.onChange(normalized);
   }
   moveControl(nextValue: number, idx: number) {
-    const { values, minDist } = this;
+    const { value, minDist } = this;
     const { disableCross } = this.props;
-    const currentValue = values[idx];
+    const currentValue = value[idx];
     if (currentValue === nextValue) return;
-    if (values.length <= 1) {
-      return this._moveControl(nextValue, idx);
+    if (value.length <= 1) {
+      return this.generateNewValueAndCommit(nextValue, idx);
     }
     const dir = nextValue - currentValue > 0 ? 1 : -1;
     const { isDeadLock, idxToSwitch: deadLockSwitchIdx } = this.genDeadLockMeta(
@@ -233,7 +237,7 @@ class Eminus extends Component<Props, State> {
     const boundIdx = idx + dir;
     const potentialBound = {
       idx: isDeadLock ? (deadLockSwitchIdx as number) : idx + dir,
-      value: values[boundIdx],
+      value: value[boundIdx],
     };
     if (!isNil(potentialBound.value)) {
       if (minDist) {
@@ -251,21 +255,20 @@ class Eminus extends Component<Props, State> {
     }
     if (bound.idx !== -1) {
       if (disableCross && !isDeadLock) {
-        this._moveControl(bound.value, idx);
+        this.generateNewValueAndCommit(bound.value, idx);
       } else {
-        const newValues = [...values];
-        newValues[idx] = bound.value;
-        newValues[bound.idx] = nextValue;
-        this.mouseMoveState.activeIdx = bound.idx;
-        this.mouseMoveState.values = newValues;
+        const newValue = [...value];
+        newValue[idx] = bound.value;
+        newValue[bound.idx] = nextValue;
         this.setState({
           activeIdx: bound.idx,
         });
-        this.props.onChange(newValues);
+        this.mouseMoveState.activeIdx = bound.idx;
+        this.commitNewValue(newValue);
         this.$focusControl(bound.idx);
       }
     } else {
-      this._moveControl(nextValue, idx);
+      this.generateNewValueAndCommit(nextValue, idx);
     }
   }
   genDeadLockMeta(
@@ -276,7 +279,7 @@ class Eminus extends Component<Props, State> {
     idxToSwitch?: number;
   } {
     const { disableCross } = this.props;
-    const currentValue = this.values[idx];
+    const currentValue = this.value[idx];
     const isCurrentAtMin = currentValue === this.props.min;
     const isCurrentAtMax = currentValue === this.props.max;
     const maybeDeadLock =
@@ -285,7 +288,7 @@ class Eminus extends Component<Props, State> {
     if (!maybeDeadLock) {
       return { isDeadLock: false };
     }
-    const switchCandidates = this.values
+    const switchCandidates = this.value
       .map((value, idx) => ({
         value,
         idx,
@@ -304,6 +307,9 @@ class Eminus extends Component<Props, State> {
           ? Math.max(...switchCandidates)
           : Math.min(...switchCandidates),
     };
+  }
+  normalizeValue(value: number[]) {
+    return sortArray(value.map(n => clamp(n, this.props.min, this.props.max)));
   }
 
   // getters
@@ -324,14 +330,13 @@ class Eminus extends Component<Props, State> {
   get tooltipValue(): number {
     const { tooltipIdx } = this;
     if (tooltipIdx === -1) return 0;
-    return this.values[tooltipIdx];
+    return this.value[tooltipIdx];
   }
-  _values = memoize((derived: number[]) => sortArray(derived));
-  get values(): number[] {
+  get value(): number[] {
     if (this.state.isDragging) {
       return this.mouseMoveState.values;
     }
-    return this._values(this.props.value);
+    return this.normalizeValue(this.props.value);
   }
   get minDist(): number {
     if (!this.props.disableCross || !this.props.minDist) {
@@ -340,10 +345,10 @@ class Eminus extends Component<Props, State> {
     return this.props.minDist;
   }
   render() {
-    const { props, state, tooltipIdx, tooltipValue, values } = this;
+    const { props, state, tooltipIdx, tooltipValue, value } = this;
     const range: Range = [
-      values.length <= 1 ? 0 : Math.min(...values),
-      Math.max(...values),
+      value.length <= 1 ? 0 : Math.min(...value),
+      Math.max(...value),
     ];
     return (
       <div
@@ -405,7 +410,7 @@ class Eminus extends Component<Props, State> {
           ariaLabelledBy={props.ariaLabelledBy}
           ariaDescribedBy={props.ariaDescribedBy}
           ariaValueTextFormatter={props.ariaValueTextFormatter}
-          values={values}
+          values={value}
         />
       </div>
     );
