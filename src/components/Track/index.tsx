@@ -10,23 +10,23 @@ type Props = Pick<
   range: Range;
 };
 const Track = ({ range, disableTrack, min, max, vertical }: Props) => {
-  const enableTrack = !disableTrack;
+  if (disableTrack) {
+    return <div className="Eminus-track" />;
+  }
   const mappedRange = [
     mapNumberToPercent(range[0], min, max),
     mapNumberToPercent(range[1], min, max),
   ];
   return (
     <div className="Eminus-track">
-      {enableTrack && (
-        <div
-          className="Eminus-track-progress"
-          style={{
-            [vertical ? 'top' : 'left']: mappedRange[0] + '%',
-            [vertical ? 'height' : 'width']:
-              mappedRange[1] - mappedRange[0] + '%',
-          }}
-        />
-      )}
+      <div
+        className="Eminus-track-progress"
+        style={{
+          [vertical ? 'top' : 'left']: mappedRange[0] + '%',
+          [vertical ? 'height' : 'width']:
+            mappedRange[1] - mappedRange[0] + '%',
+        }}
+      />
     </div>
   );
 };
