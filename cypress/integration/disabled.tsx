@@ -9,6 +9,7 @@ it('Disabled', () => {
     .should('have.class', 'Eminus--disabled')
     .should('have.css', 'pointer-events', 'none');
   $getCtrl().each($ctrl => {
-    expect($ctrl).to.not.have.attr('tab-index');
+    cy.wrap($ctrl).should('not.have.attr', 'tab-index');
+    cy.wrap($ctrl).should('have.css', 'pointer-events', 'none');
   });
 });

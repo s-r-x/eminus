@@ -64,7 +64,10 @@ class Control extends PureComponent<Props> {
         style={{
           [props.vertical ? 'top' : 'left']:
             mapNumberToPercent(value, props.min, props.max) + '%',
-          pointerEvents: props.isDragging && !props.isActive ? 'none' : 'auto',
+          pointerEvents:
+            props.disabled || (props.isDragging && !props.isActive)
+              ? 'none'
+              : 'auto',
           cursor: props.isDragging && props.isActive ? 'inherit' : 'grab',
         }}
         data-idx={props.idx}
