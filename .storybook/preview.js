@@ -6,7 +6,7 @@ export const parameters = {
   options: {
     storySort: {
       method: '',
-      order: ['Playground', 'Styling', 'Custom tooltip renderer'],
+      order: ['Playground', 'Styling', 'Tooltips'],
       locales: '',
     },
   },

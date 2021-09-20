@@ -1,0 +1,49 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { Uncontrolled as Eminus } from '../';
+
+<Meta title="Tooltips" component={Eminus} />
+
+## tooltipRenderer prop
+
+<Canvas>
+  <Story name="tooltipRenderer prop">
+    <Eminus
+      alwaysShowTooltip
+      tooltipRenderer={({ style, value }) => (
+        <div
+          style={{
+            ...style,
+            '--size': '50px',
+            position: 'absolute',
+            background: 'deeppink',
+            fontSize: '14px',
+            color: 'white',
+            borderRadius: '50%',
+            display: 'flex',
+            width: 'var(--size)',
+            height: 'var(--size)',
+            alignItems: 'center',
+            justifyContent: 'center',
+            bottom: 'calc(var(--root-height) + 7px)',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          {`${value}%`}
+        </div>
+      )}
+      defaultValue={[0, 100]}
+    />
+  </Story>
+</Canvas>
+
+## tooltipFormatter prop
+
+<Canvas>
+  <Story name="tooltipFormatter prop">
+    <Eminus
+      alwaysShowTooltip
+      tooltipFormatter={value => `${value}%`}
+      defaultValue={[0, 100]}
+    />
+  </Story>
+</Canvas>
