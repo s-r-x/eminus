@@ -24,6 +24,7 @@ Playground.args = {
   alwaysShowTooltip: false,
   hideTooltip: false,
   disabled: false,
+  disableTrack: false,
   minDist: 0,
   min: 0,
   max: 100,
