@@ -6,6 +6,7 @@ body.EminusGlobal {
 .Eminus {
   --track-color: gray;
   --control-color: #673ab7;
+  --control-shadow-color: rgba(103, 58, 183, 0.5);
   --progress-color: var(--control-color);
   --mark-color: gray;
   --label-color: black;
@@ -55,7 +56,7 @@ body.EminusGlobal {
     background: var(--control-color);
     &:hover,
     &:focus {
-      box-shadow: 0 0 0 3px rgba(103, 58, 183, 0.5);
+      box-shadow: 0 0 0 3px var(--control-shadow-color);
     }
     &:focus {
       outline: none;
