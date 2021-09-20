@@ -1,0 +1,59 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { Uncontrolled as EminusUncontrolled } from '../';
+
+<Meta title="Styling" component={EminusUncontrolled} />
+
+## Inline styles
+
+<Canvas>
+  <Story name="Inline styles">
+    <EminusUncontrolled
+      style={{
+        '--control-size': '24px',
+        '--control-color': 'deeppink',
+        '--track-color': 'lightblue',
+        '--progress-color': 'deeppink',
+        '--mark-color': 'lightblue',
+        '--mark-color-active': 'deeppink',
+        '--progress-size': '10px',
+        '--mark-size': '16px',
+        '--tooltip-color': 'deeppink',
+        '--tooltip-text-color': 'white',
+        '--label-color': 'deeppink'
+      }}
+      marks={[50, 75]}
+      defaultValue={[0, 25]}
+    />
+  </Story>
+</Canvas>
+
+## CSS classes
+
+<Canvas>
+  <Story name="CSS classes">
+    <>
+      <style>
+        {`
+        .my-cls {
+          --control-size: 24px;
+          --control-color: deeppink;
+          --track-color: lightblue;
+          --progress-color: deeppink;
+          --mark-color: lightblue;
+          --mark-color-active: deeppink;
+          --progress-size: 10px;
+          --mark-size: 16px;
+          --tooltip-color: deeppink;
+          --tooltip-text-color: white;
+          --label-color: deeppink;
+        } 
+      `}
+      </style>
+      <EminusUncontrolled
+        className="my-cls"
+        marks={[50, 75]}
+        defaultValue={[0, 25]}
+      />
+    </>
+  </Story>
+</Canvas>
