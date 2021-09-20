@@ -22,6 +22,7 @@ Playground.args = {
   vertical: false,
   disableCross: false,
   hideTooltip: false,
+  disabled: false,
   minDist: 0,
   min: 0,
   max: 100,
