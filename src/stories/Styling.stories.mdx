@@ -43,21 +43,22 @@ import { Uncontrolled as EminusUncontrolled } from '../';
           --mark-color: lightblue;
           --mark-color-active: deeppink;
           --progress-size: 10px;
-          --mark-size: 16px;
           --tooltip-color: deeppink;
           --tooltip-text-color: white;
           --label-color: deeppink;
           --control-shadow-color: white;
         } 
-        .my-cls .Eminus-track {
-          border-radius: 14px;
+        .my-cls .Eminus-mark-value {
+          width: 2px;
+          height: 18px;
+          border-radius: 2px;
         }
       `}
       </style>
       <EminusUncontrolled
         className="my-cls"
-        marks={[50, 75]}
-        defaultValue={[0, 25]}
+        marks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+        defaultValue={[25, 50]}
       />
     </>
   </Story>
