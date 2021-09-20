@@ -65,29 +65,31 @@ describe('Tooltips', () => {
       .should('have.text', '25%');
   });
   it('tooltipRenderer prop', () => {
-    const renderer: RootProps['tooltipRenderer'] = ({ style, value }) => {
-      return (
-        <div
-          className="my-tooltip"
-          style={{
-            ...style,
-            position: 'absolute',
-            background: 'deeppink',
-            padding: '5px 10px',
-            fontSize: '14px',
-            color: 'white',
-            borderRadius: '4px',
-            top: 'calc(var(--root-height) + 7px)',
-            transform: 'translateX(-50%)',
-          }}
-        >
-          {value}
-        </div>
-      );
-    };
+    const renderer: RootProps['tooltipRenderer'] = ({ style, value }) => (
+      <div
+        className="my-tooltip"
+        style={{
+          ...style,
+          position: 'absolute',
+          background: 'deeppink',
+          padding: '5px 10px',
+          fontSize: '14px',
+          color: 'white',
+          borderRadius: '4px',
+          top: 'calc(var(--root-height) + 7px)',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        {value}
+      </div>
+    );
     mount(<Eminus defaultValue={[0]} step={25} tooltipRenderer={renderer} />);
     $getFirstCtrl().focus().trigger('keydown', { key: 'ArrowRight' });
     cy.get('.my-tooltip').should('exist').should('have.text', '25');
     $getTooltip().should('not.exist');
+  });
+  it('alwaysShowTooltip prop', () => {
+    mount(<Eminus defaultValue={[0, 25, 50]} alwaysShowTooltip />);
+    $getTooltip().should('have.length', 3);
   });
 });
