@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { Uncontrolled as Eminus } from '../';
+
+<Meta title="Custom tooltip renderer" component={Eminus} />
+
+<Canvas>
+  <Story name="Custom tooltip renderer">
+    <Eminus
+      tooltipRenderer={({ style, value }) => (
+        <div
+          style={{
+            ...style,
+            position: 'absolute',
+            background: 'deeppink',
+            padding: '5px 10px',
+            fontSize: '14px',
+            color: 'white',
+            borderRadius: '4px',
+            bottom: 'calc(var(--root-height) + 7px)',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          {value}%
+        </div>
+      )}
+      defaultValue={[0, 100]}
+    />
+  </Story>
+</Canvas>
