@@ -4,6 +4,8 @@ build:
 	npm run build
 lint:
 	npm run lint
+lint.strict:
+	npm run lint.strict
 lint.fix:
 	npm run lint.fix
 check-types:

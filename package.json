@@ -17,6 +17,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx src",
+    "lint.strict": "eslint --ext .ts,.tsx src --max-warnings 0",
     "lint.fix": "eslint --ext .ts,.tsx --fix src",
     "test.unit": "NODE_ENV=test jest --maxWorkers=1",
     "test.unit.watch": "NODE_ENV=test jest --watch",
