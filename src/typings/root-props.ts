@@ -50,6 +50,7 @@ export type RootProps = {
   tooltipFormatter?: TooltipFormatter;
   tooltipRenderer?: TooltipRenderer;
   hideTooltip?: boolean;
+  alwaysShowTooltip?: boolean;
 };
 export type UncontrolledRootProps = Omit<RootProps, 'value' | 'onChange'> & {
   defaultValue: number[];

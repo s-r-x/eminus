@@ -321,16 +321,12 @@ class Eminus extends Component<Props, State> {
   }
   get tooltipIdx(): number {
     const { state } = this;
-    if (state.hoverIdx !== -1) return state.hoverIdx;
-    if (state.disableFocusTooltip && !state.isDragging) {
+    if (this.props.hideTooltip) return -1;
+    else if (state.hoverIdx !== -1) return state.hoverIdx;
+    else if (state.disableFocusTooltip && !state.isDragging) {
       return -1;
     }
     return this.activeIdx;
-  }
-  get tooltipValue(): number {
-    const { tooltipIdx } = this;
-    if (tooltipIdx === -1) return 0;
-    return this.value[tooltipIdx];
   }
   get value(): number[] {
     if (this.state.isDragging) {
@@ -345,7 +341,7 @@ class Eminus extends Component<Props, State> {
     return this.props.minDist;
   }
   render() {
-    const { props, state, tooltipIdx, tooltipValue, value } = this;
+    const { props, state, tooltipIdx, value } = this;
     const range: Range = [
       value.length <= 1 ? 0 : Math.min(...value),
       Math.max(...value),
@@ -381,17 +377,30 @@ class Eminus extends Component<Props, State> {
             marks={props.marks}
           />
         )}
-        {!props.hideTooltip && tooltipIdx !== -1 && (
+        {props.alwaysShowTooltip && (
           <>
-            <Tooltip
-              value={tooltipValue}
-              tooltipFormatter={props.tooltipFormatter}
-              vertical={props.vertical}
-              tooltipRenderer={props.tooltipRenderer}
-              min={props.min}
-              max={props.max}
-            />
+            {value.map((value, idx) => (
+              <Tooltip
+                key={idx}
+                value={value}
+                tooltipFormatter={props.tooltipFormatter}
+                vertical={props.vertical}
+                tooltipRenderer={props.tooltipRenderer}
+                min={props.min}
+                max={props.max}
+              />
+            ))}
           </>
+        )}
+        {tooltipIdx !== -1 && !props.alwaysShowTooltip && (
+          <Tooltip
+            value={value[tooltipIdx]}
+            tooltipFormatter={props.tooltipFormatter}
+            vertical={props.vertical}
+            tooltipRenderer={props.tooltipRenderer}
+            min={props.min}
+            max={props.max}
+          />
         )}
         <Controls
           min={props.min}
