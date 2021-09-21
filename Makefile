@@ -2,6 +2,10 @@ dev:
 	npm run dev
 build:
 	npm run build
+build.types:
+	npm run build.types
+build.code:
+	npm run build.code
 lint:
 	npm run lint
 lint.strict:
@@ -10,8 +14,6 @@ lint.fix:
 	npm run lint.fix
 check-types:
 	npm run check-types
-gen-types:
-	npm run gen-types
 storybook:
 	npm run storybook
 storybook.build:

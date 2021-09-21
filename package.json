@@ -6,6 +6,7 @@
   ],
   "main": "./dist/eminus.umd.js",
   "module": "./dist/eminus.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/eminus.es.js",
@@ -14,7 +15,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run build.code && npm run build.types",
+    "build.types": "tsc -p tsconfig.build.json",
+    "build.code": "vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx src",
     "lint.strict": "eslint --ext .ts,.tsx src --max-warnings 0",
@@ -23,7 +26,7 @@
     "test.unit.watch": "NODE_ENV=test jest --watch",
     "test.browser": "cypress run-ct",
     "test.browser.dashboard": "cypress open-ct",
-    "check-types": "tsc -noEmit",
+    "check-types": "tsc",
     "storybook": "start-storybook -p 6006",
     "storybook.build": "build-storybook"
   },

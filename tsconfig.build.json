@@ -15,8 +15,16 @@
     "isolatedModules": true,
     "jsx": "react",
     "noImplicitAny": true,
-    "noEmit": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "emitDeclarationOnly": true,
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["./src"]
+  "include": ["./src"],
+  "exclude": [
+    "./src/stories/**",
+    "./src/tests/**",
+    "./src/**/*.spec.ts",
+    "./src/_dev/**"
+  ]
 }
