@@ -2,6 +2,7 @@
   "name": "eminus",
   "description": "Range slider for React",
   "version": "0.1.0",
+  "author": "Ilya Strus <strax1990@gmail.com>",
   "files": [
     "dist"
   ],
