@@ -16,6 +16,7 @@
     "jsx": "react",
     "noImplicitAny": true,
     "declaration": true,
+    "stripInternal": true,
     "declarationDir": "./dist/types",
     "emitDeclarationOnly": true,
     "types": ["jest", "@testing-library/jest-dom"]
