@@ -12,6 +12,12 @@
     "type": "git",
     "url": "https://github.com/s-r-x/eminus.git"
   },
+  "keywords": [
+    "react",
+    "range",
+    "slider",
+    "react-component"
+  ],
   "exports": {
     ".": {
       "import": "./dist/eminus.es.js",
