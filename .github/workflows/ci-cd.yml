@@ -2,10 +2,8 @@ name: CI/CD
 on:
   push:
     branches: ['main']
-    pull_request:
-      branches: ['main']
-    # paths:
-    #   ['src/stories/**', 'src/components/**', 'src/styles/**', '.storybook/**']
+  pull_request:
+    branches: ['main']
 
 jobs:
   lint:
@@ -16,7 +14,7 @@ jobs:
       - uses: ./.github/actions/bootstrap
       - run: npm run lint.strict
   test:
-    name: Test 
+    name: Test
     runs-on: ubuntu-latest
     env:
       CYPRESS_CACHE_FOLDER: cypress/cache
@@ -32,22 +30,3 @@ jobs:
         run: npm run test.unit
       - name: Browser tests
         run: npm run test.browser
-  # build-and-deploy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout 🛎️
-  #       uses: actions/checkout@v2.3.1
-  #       with:
-  #         persist-credentials: false
-  #     - name: Install and Build 🔧
-  #       run: |
-  #         npm ci
-  #         npm run storybook.build
-  #     - name: Deploy 🚀
-  #       uses: JamesIves/github-pages-deploy-action@4.1.5
-  #       with:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         BRANCH: main
-  #         FOLDER: storybook-static
-  #         CLEAN: true
-  #         TARGET_FOLDER: docs
