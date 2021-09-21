@@ -6,7 +6,7 @@
   ],
   "main": "./dist/eminus.umd.js",
   "module": "./dist/eminus.es.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/eminus.es.js",

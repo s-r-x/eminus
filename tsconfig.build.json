@@ -16,7 +16,7 @@
     "jsx": "react",
     "noImplicitAny": true,
     "declaration": true,
-    "outDir": "./dist",
+    "declarationDir": "./dist/types",
     "emitDeclarationOnly": true,
     "types": ["jest", "@testing-library/jest-dom"]
   },
