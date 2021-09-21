@@ -14,13 +14,14 @@ jobs:
         with:
           node-version: '16.4'
       - name: Cache dependencies
+        id: npm_cache
         uses: actions/cache@v2
         with:
           path: ./node_modules
           key: deps-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.npm_cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Eslint
         run: npm run lint.strict
