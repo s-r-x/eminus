@@ -1,11 +1,12 @@
 name: CI/CD
 on:
-  env:
-    CYPRESS_CACHE_FOLDER: cypress/cache
   push:
     branches: ['main']
     # paths:
     #   ['src/stories/**', 'src/components/**', 'src/styles/**', '.storybook/**']
+env:
+  CYPRESS_CACHE_FOLDER: cypress/cache
+
 jobs:
   lint:
     name: lint
