@@ -12,6 +12,7 @@
     "type": "git",
     "url": "https://github.com/s-r-x/eminus.git"
   },
+  "homepage": "https://s-r-x.github.io/eminus",
   "keywords": [
     "react",
     "range",
