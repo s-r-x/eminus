@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="121.35mm" height="28.136mm" version="1.1" viewBox="0 0 121.35 28.136" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient2065-9">
+   <stop stop-color="#bc8dfb" stop-opacity=".95686" offset="0"/>
+   <stop stop-color="#6fd6ff" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2131" x1="724.5" x2="825.85" y1="1028.2" y2="1028.3" gradientTransform="matrix(.94131 0 0 1 242.14 320.1)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2065-9"/>
+  <linearGradient id="linearGradient2151" x1="724.5" x2="825.85" y1="1028.2" y2="1028.3" gradientTransform="matrix(.95921 0 0 1 226.08 320.1)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2065-9"/>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-899.73 -1345.6)">
+  <text x="1499.9166" y="368.09372" fill="#000000" font-family="sans-serif" font-size="10.583px" letter-spacing="0px" stroke-width=".26458" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="1499.9166" y="377.45749" stroke-width=".26458"/></text>
+  <path d="m920.85 1347.8c-0.4971 0-0.8972 0.4172-0.8972 0.9354 0 0.5183 0.4001 0.9353 0.8972 0.9353h27.57a3.031 3.1599 0 0 1-0.12986-0.9059 3.031 3.1599 0 0 1 0.14622-0.9648z" fill="url(#linearGradient2151)"/>
+  <path d="m956.67 1347.8a2.9745 3.1599 0 0 1 0.14592 0.9648 2.9745 3.1599 0 0 1-0.12598 0.9059h63.199c0.4878 0 0.8805-0.417 0.8805-0.9353 0-0.5182-0.3927-0.9354-0.8805-0.9354z" fill="url(#linearGradient2131)"/>
+  <g fill="#e92664">
+   <path d="m905.4 1367.5v-4.4714h9.015v-5.4811h-9.015v-4.183h9.9165v-5.5532h-15.686v25.242h15.866v-5.5533z" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"/>
+   <path d="m940.18 1354.6c-2.5603 0-4.219 0.9376-5.2287 2.38-1.0097-1.5145-2.5963-2.38-4.7238-2.38-2.416 0-4.0027 0.9376-4.832 2.1636v-1.6587h-5.409v18.03h5.409v-10.169c0-2.1275 1.0097-3.3896 2.8127-3.3896 1.7309 0 2.5963 1.1539 2.5963 2.9569v10.602h5.409v-10.169c0-2.1275 1.0097-3.3896 2.8127-3.3896 1.7309 0 2.5963 1.1539 2.5963 2.9569v10.602h5.409v-11.07c0-4.5075-2.7045-7.4644-6.8514-7.4644z" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"/>
+   <path d="m951.97 1373.1h5.409v-18.03h-5.409z" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"/>
+   <path d="m972.94 1354.6c-2.38 0-4.183 0.8655-5.1566 2.1997v-1.6948h-5.409v18.03h5.409v-9.8444c0-2.5603 1.3703-3.7142 3.3536-3.7142 1.7309 0 3.1372 1.0457 3.1372 3.2815v10.277h5.409v-11.07c0-4.8681-3.1012-7.4644-6.7432-7.4644z" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"/>
+   <path d="m996.51 1355.2v9.8443c0 2.5603-1.3703 3.7142-3.3536 3.7142-1.7309 0-3.1372-1.0457-3.1372-3.2814v-10.277h-5.409v11.07c0 4.8681 3.1012 7.4644 6.7432 7.4644 2.38 0 4.183-0.8654 5.1566-2.1997v1.6949h5.409v-18.03z" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"/>
+   <path d="m1012.2 1360.3c0-0.6491 0.577-1.0097 1.5145-1.0097 1.19 0 1.9112 0.6491 2.416 1.5867l4.6157-2.4882c-1.5145-2.5602-4.1108-3.8584-7.0317-3.8584-3.7502 0-7.0677 1.9833-7.0677 5.9139 0 6.2383 8.8707 5.1926 8.8707 7.1759 0 0.7212-0.6491 1.1179-1.9472 1.1179-1.5867 0-2.5963-0.7573-3.0651-2.1276l-4.6878 2.6685c1.4063 2.9208 4.1469 4.2911 7.7529 4.2911 3.8945 0 7.5005-1.7669 7.5005-5.9138 0-6.6711-8.8708-5.3009-8.8708-7.3563z" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"/>
+   <g transform="translate(637.11 1066.5)">
+    <circle cx="315.45" cy="282.22" r="3.1599" fill="#e92664"/>
+   </g>
+  </g>
+ </g>
+</svg>
