@@ -8,6 +8,10 @@
   "module": "./dist/eminus.es.js",
   "types": "./dist/types/index.d.ts",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s-r-x/eminus.git"
+  },
   "exports": {
     ".": {
       "import": "./dist/eminus.es.js",
