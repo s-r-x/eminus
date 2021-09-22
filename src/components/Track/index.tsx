@@ -5,12 +5,12 @@ import { mapNumberToPercent } from '../../utils/map-number';
 
 type Props = Pick<
   RootProps,
-  'min' | 'max' | 'disabled' | 'disableTrack' | 'vertical'
+  'min' | 'max' | 'disabled' | 'hideTrack' | 'vertical'
 > & {
   range: Range;
 };
-const Track = ({ range, disableTrack, min, max, vertical }: Props) => {
-  if (disableTrack) {
+const Track = ({ range, hideTrack, min, max, vertical }: Props) => {
+  if (hideTrack) {
     return <div className="Eminus-track" />;
   }
   const mappedRange = [

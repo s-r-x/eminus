@@ -39,7 +39,7 @@ export type RootProps = {
   step: number;
   min: number;
   max: number;
-  disableTrack?: boolean;
+  hideTrack?: boolean;
   disabled?: boolean;
   className?: string;
   style?: CSSProperties;
