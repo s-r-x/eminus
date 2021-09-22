@@ -74,6 +74,7 @@
           "changelogFile": "CHANGELOG.md"
         }
       ],
+      "@semantic-release/github",
       [
         "@semantic-release/git",
         {
@@ -122,6 +123,7 @@
     "@cypress/vite-dev-server": "^2.0.8",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
+    "@semantic-release/github": "^8.0.0",
     "@semantic-release/release-notes-generator": "^10.0.2",
     "@storybook/addon-actions": "^6.4.0-alpha.32",
     "@storybook/addon-essentials": "^6.4.0-alpha.32",
