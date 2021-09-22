@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/s-r-x/eminus/compare/v1.0.1...v1.0.2) (2021-09-22)
+
+
+### Bug Fixes
+
+* remove exports from package.json ([0824258](https://github.com/s-r-x/eminus/commit/0824258cb0c1c067b045dec088461109b942005f))
+
 ## [1.0.1](https://github.com/s-r-x/eminus/compare/v1.0.0...v1.0.1) (2021-09-22)
 
 # 1.0.0 (2021-09-22)
