@@ -6,12 +6,6 @@
   "files": [
     "dist"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/eminus.es.js",
-      "require": "./dist/eminus.umd.js"
-    }
-  },
   "main": "./dist/eminus.umd.js",
   "module": "./dist/eminus.es.js",
   "style": "./dist/style.css",
