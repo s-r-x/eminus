@@ -161,7 +161,7 @@ class Eminus extends Component<Props, State> {
     }
     const { min, max, step } = this.props;
     const value = this.value[idx];
-    if (key === 'ArrowLeft' || key === 'ArrowDown') {
+    if (key === 'ArrowLeft' || key === 'ArrowUp') {
       e.preventDefault();
       this.moveControl(Math.max(value - step, min), idx);
       this.setState({
