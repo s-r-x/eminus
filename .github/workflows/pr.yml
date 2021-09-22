@@ -1,4 +1,4 @@
-name: CI/CD
+name: PR
 on:
   pull_request:
     branches: ['main']
@@ -34,4 +34,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/bootstrap
-      - run: npm run build.code
+      - run: npm run build
