@@ -26,3 +26,5 @@ test.browser:
 	npm run test.browser
 test.browser.dashboard:
 	npm run test.browser.dashboard
+release:
+	npm run semantic-release
