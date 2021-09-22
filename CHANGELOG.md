@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/s-r-x/eminus/compare/v1.0.2...v1.0.3) (2021-09-22)
+
+
+### Bug Fixes
+
+* move control to the positive direction on ArrowDown and to the negative on ArrowUp ([b88c751](https://github.com/s-r-x/eminus/commit/b88c751ba9a970cedcb12dce1faca4f4f0b7c226))
+
 ## [1.0.2](https://github.com/s-r-x/eminus/compare/v1.0.1...v1.0.2) (2021-09-22)
 
 
