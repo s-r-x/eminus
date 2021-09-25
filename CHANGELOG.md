@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/s-r-x/eminus/compare/v1.0.3...v1.0.4) (2021-09-25)
+
+
+### Bug Fixes
+
+* move react and react-dom to peerDependencies ([073c0b5](https://github.com/s-r-x/eminus/commit/073c0b519aca3cb2d0740353a4f910829e986b09))
+
 ## [1.0.3](https://github.com/s-r-x/eminus/compare/v1.0.2...v1.0.3) (2021-09-22)
 
 
