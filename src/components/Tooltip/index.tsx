@@ -3,11 +3,11 @@ import { isNil } from '../../utils/is-nil';
 import { RootProps } from '../../typings/root-props';
 import { mapNumberToPercent } from '../../utils/map-number';
 
-type Props = Pick<
-  RootProps,
-  'vertical' | 'min' | 'max' | 'tooltipFormatter' | 'tooltipRenderer'
-> & {
+type Props = Pick<RootProps, 'tooltipFormatter' | 'tooltipRenderer'> & {
   value: number;
+  vertical?: boolean;
+  min: number;
+  max: number;
 };
 const Tooltip = (props: Props) => {
   const content = props.tooltipFormatter

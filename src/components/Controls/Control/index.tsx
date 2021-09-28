@@ -4,12 +4,15 @@ import {
   ControlFocusFn,
   PointerDownFn,
 } from '../../../typings/event-fns';
-import { RootProps } from '../../../typings/root-props';
 import { mapNumberToPercent } from '../../../utils/map-number';
 
-export type Props = Pick<RootProps, 'min' | 'max' | 'step' | 'vertical'> & {
+export type Props = {
   value: number;
   idx: number;
+  vertical?: boolean;
+  min: number;
+  max: number;
+  step: number;
   disabled?: boolean;
   onBlur: ControlBlurFn;
   onFocus: ControlFocusFn;

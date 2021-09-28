@@ -3,11 +3,11 @@ import { RootProps } from '../../typings/root-props';
 import { Range } from '../../typings/shared';
 import { mapNumberToPercent } from '../../utils/map-number';
 
-type Props = Pick<
-  RootProps,
-  'min' | 'max' | 'disabled' | 'hideTrack' | 'vertical'
-> & {
+type Props = Pick<RootProps, 'disabled' | 'hideTrack'> & {
   range: Range;
+  vertical?: boolean;
+  min: number;
+  max: number;
 };
 const Track = ({ range, hideTrack, min, max, vertical }: Props) => {
   if (hideTrack) {

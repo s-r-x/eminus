@@ -4,8 +4,11 @@ import { Range } from '../../typings/shared';
 import { isInRange } from '../../utils/is-in-range';
 import Mark from './Mark';
 
-type Props = Pick<RootProps, 'min' | 'max' | 'marks' | 'vertical'> & {
+type Props = Pick<RootProps, 'marks'> & {
   range: Range;
+  min: number;
+  max: number;
+  vertical?: boolean;
   onMouseDown: (value: number) => void;
   labelFormatter?: MarkLabelFormatter;
 };

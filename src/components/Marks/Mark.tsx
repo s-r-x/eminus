@@ -2,14 +2,16 @@ import React, { memo, CSSProperties } from 'react';
 import type {
   Mark as TMark,
   MarkLabelFormatter,
-  RootProps,
 } from '../../typings/root-props';
 import { mapNumberToPercent } from '../../utils/map-number';
 import clsx from 'clsx';
 import { clamp } from '../../utils/clamp';
 
-type Props = Pick<RootProps, 'min' | 'max' | 'vertical'> & {
+type Props = {
+  vertical?: boolean;
   mark: TMark;
+  min: number;
+  max: number;
   isActive: boolean;
   onMouseDown: (value: number) => void;
   labelFormatter?: MarkLabelFormatter;

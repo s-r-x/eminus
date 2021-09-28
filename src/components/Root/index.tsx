@@ -159,7 +159,7 @@ class Eminus extends Component<Props, State> {
     if (idx === -1) {
       return;
     }
-    const { min, max, step } = this.props;
+    const { min, max, step } = this;
     const value = this.value[idx];
     if (key === 'ArrowLeft' || key === 'ArrowUp') {
       e.preventDefault();
@@ -189,7 +189,8 @@ class Eminus extends Component<Props, State> {
   extractValueFromClickPoint(global: number): number {
     const { rootRef } = this;
     if (!rootRef.current) return 0;
-    const { min, max, step, vertical } = this.props;
+    const { min, max, step } = this;
+    const { vertical } = this.props;
     const rootRect = rootRef.current.getBoundingClientRect();
     const size = Math.abs(
       vertical ? rootRect.top - rootRect.bottom : rootRect.left - rootRect.right
@@ -280,8 +281,8 @@ class Eminus extends Component<Props, State> {
   } {
     const { disableCross } = this.props;
     const currentValue = this.value[idx];
-    const isCurrentAtMin = currentValue === this.props.min;
-    const isCurrentAtMax = currentValue === this.props.max;
+    const isCurrentAtMin = currentValue === this.min;
+    const isCurrentAtMax = currentValue === this.max;
     const maybeDeadLock =
       disableCross &&
       ((dir === 1 && isCurrentAtMin) || (dir === -1 && isCurrentAtMax));
@@ -309,10 +310,19 @@ class Eminus extends Component<Props, State> {
     };
   }
   normalizeValue(value: number[]) {
-    return sortArray(value.map(n => clamp(n, this.props.min, this.props.max)));
+    return sortArray(value.map(n => clamp(n, this.min, this.max)));
   }
 
   // getters
+  get min(): number {
+    return this.props.min as number;
+  }
+  get max(): number {
+    return this.props.max as number;
+  }
+  get step(): number {
+    return this.props.step as number;
+  }
   get activeIdx(): number {
     if (this.state.isDragging) {
       return this.mouseMoveState.activeIdx;
@@ -341,7 +351,7 @@ class Eminus extends Component<Props, State> {
     return this.props.minDist;
   }
   render() {
-    const { props, state, tooltipIdx, value } = this;
+    const { props, state, tooltipIdx, value, min, max, step } = this;
     const range: Range = [
       value.length <= 1 ? 0 : Math.min(...value),
       Math.max(...value),
@@ -361,8 +371,8 @@ class Eminus extends Component<Props, State> {
       >
         <Track
           vertical={props.vertical}
-          min={props.min}
-          max={props.max}
+          min={min}
+          max={max}
           hideTrack={props.hideTrack}
           range={range}
         />
@@ -372,8 +382,8 @@ class Eminus extends Component<Props, State> {
             labelFormatter={props.markLabelFormatter}
             onMouseDown={this.onMarkMouseDown}
             range={range}
-            min={props.min}
-            max={props.max}
+            min={min}
+            max={max}
             marks={props.marks}
           />
         )}
@@ -386,8 +396,8 @@ class Eminus extends Component<Props, State> {
                 tooltipFormatter={props.tooltipFormatter}
                 vertical={props.vertical}
                 tooltipRenderer={props.tooltipRenderer}
-                min={props.min}
-                max={props.max}
+                min={min}
+                max={max}
               />
             ))}
           </>
@@ -398,16 +408,16 @@ class Eminus extends Component<Props, State> {
             tooltipFormatter={props.tooltipFormatter}
             vertical={props.vertical}
             tooltipRenderer={props.tooltipRenderer}
-            min={props.min}
-            max={props.max}
+            min={min}
+            max={max}
           />
         )}
         <Controls
-          min={props.min}
-          max={props.max}
+          min={min}
+          max={max}
           vertical={props.vertical}
           disabled={props.disabled}
-          step={props.step}
+          step={step}
           onPointerDown={this.onControlPointerDown}
           onMouseEnter={this.onControlMouseEnter}
           onMouseLeave={this.onControlMouseLeave}

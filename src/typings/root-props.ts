@@ -36,9 +36,9 @@ export type RootProps = {
   markLabelFormatter?: MarkLabelFormatter;
   disableCross?: boolean;
   vertical?: boolean;
-  step: number;
-  min: number;
-  max: number;
+  step?: number;
+  min?: number;
+  max?: number;
   hideTrack?: boolean;
   disabled?: boolean;
   className?: string;

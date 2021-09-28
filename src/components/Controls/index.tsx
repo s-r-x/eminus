@@ -14,11 +14,11 @@ type Props = Pick<
   | 'ariaLabelledBy'
   | 'ariaDescribedBy'
   | 'ariaValueTextFormatter'
-  | 'min'
-  | 'max'
-  | 'step'
-  | 'vertical'
 > & {
+  vertical?: boolean;
+  min: number;
+  max: number;
+  step: number;
   activeIdx: number;
   isDragging: boolean;
   onMouseEnter: (idx: number) => void;
