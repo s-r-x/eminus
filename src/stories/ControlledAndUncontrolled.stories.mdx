@@ -1,0 +1,26 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+<Meta title="Controlled and Uncontrolled" />
+
+# Controlled
+
+```tsx
+import React, { useState } from 'react';
+import Eminus from 'eminus';
+
+const Component = () => {
+  const [value, setValue] = useState([0, 42]);
+  return <Eminus value={value} onChange={setValue} />;
+};
+```
+
+# Uncontrolled
+
+```tsx
+import React from 'react';
+import Eminus from 'eminus';
+
+const Component = () => {
+  return <Eminus defaultValue={[0, 42]} />;
+};
+```

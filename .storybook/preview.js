@@ -2,7 +2,13 @@ export const parameters = {
   layout: 'centered',
   options: {
     storySort: {
-      order: ['Playground', 'Styling', 'Tooltips', 'Aria'],
+      order: [
+        'Playground',
+        'Controlled and Uncontrolled',
+        'Styling',
+        'Tooltips',
+        'Aria',
+      ],
     },
   },
 };
