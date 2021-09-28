@@ -1,7 +1,7 @@
 {
   "name": "eminus",
   "description": "Range slider for React",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "author": "Ilya Strus <strax1990@gmail.com>",
   "files": [
     "dist"
@@ -108,9 +108,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "clsx": "^1.1.1",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "clsx": "^1.1.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -144,6 +146,8 @@
     "eslint-plugin-prettier": "^3.4.1",
     "jest": "^27.1.0",
     "less": "^4.1.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "semantic-release": "^18.0.0",
     "semantic-release-cli": "^5.4.4",
     "storybook-builder-vite": "^0.0.12",
