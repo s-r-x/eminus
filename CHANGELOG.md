@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/s-r-x/eminus/compare/v1.0.4...v1.0.5) (2021-09-28)
+
+
+### Bug Fixes
+
+* optional props become required when styling with linaria ([c467141](https://github.com/s-r-x/eminus/commit/c467141c8515b2495e581b5e77c4997afd4227e5))
+
 ## [1.0.4](https://github.com/s-r-x/eminus/compare/v1.0.3...v1.0.4) (2021-09-25)
 
 

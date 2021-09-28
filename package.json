@@ -1,7 +1,7 @@
 {
   "name": "eminus",
   "description": "Range slider for React",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Ilya Strus <strax1990@gmail.com>",
   "files": [
     "dist"
