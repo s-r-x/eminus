@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/s-r-x/eminus/compare/v1.0.5...v1.0.6) (2021-10-07)
+
+
+### Performance Improvements
+
+* memoize value ([aaa5d43](https://github.com/s-r-x/eminus/commit/aaa5d43bc16afb2cb5a786d9126aa32e74fb3b74))
+
 ## [1.0.5](https://github.com/s-r-x/eminus/compare/v1.0.4...v1.0.5) (2021-09-28)
 
 
