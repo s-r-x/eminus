@@ -17,6 +17,8 @@ import {
 import { sortArray } from '../../utils/sort-array';
 import { isNil } from '../../utils/is-nil';
 import { clamp } from '../../utils/clamp';
+import memoize from 'memoize-one';
+import { isArraysEq } from '../../utils/is-arrays-eq';
 
 type State = {
   isDragging: boolean;
@@ -25,6 +27,7 @@ type State = {
   isFocused: boolean;
   disableFocusTooltip: boolean;
 };
+type TMemoizedArgs = [number[], number, number];
 type Props = RootProps;
 
 class Eminus extends Component<Props, State> {
@@ -216,10 +219,13 @@ class Eminus extends Component<Props, State> {
       return newValue;
     }
   };
-  commitNewValue(newValue: number[]) {
-    const normalized = this.normalizeValue(newValue);
-    this.mouseMoveState.values = normalized;
-    this.props.onChange(normalized);
+  commitNewValue(value: number[]) {
+    const oldValue = this.value;
+    const newValue = this.memoizedValue(value, this.min, this.max);
+    if (!isArraysEq(oldValue, newValue)) {
+      this.mouseMoveState.values = newValue;
+      this.props.onChange(newValue);
+    }
   }
   moveControl(nextValue: number, idx: number) {
     const { value, minDist } = this;
@@ -309,11 +315,23 @@ class Eminus extends Component<Props, State> {
           : Math.min(...switchCandidates),
     };
   }
-  normalizeValue(value: number[]) {
-    return sortArray(value.map(n => clamp(n, this.min, this.max)));
-  }
 
   // getters
+  memoizedValue = memoize(
+    (value: number[], min: number, max: number) =>
+      sortArray(value.map(n => clamp(n, min, max))),
+    // @ts-ignore
+    (oldArgs: TMemoizedArgs, lastArgs: TMemoizedArgs) =>
+      isArraysEq(oldArgs[0], lastArgs[0]) &&
+      oldArgs[1] === lastArgs[1] &&
+      oldArgs[2] === lastArgs[2]
+  );
+  get value(): number[] {
+    if (this.state.isDragging) {
+      return this.mouseMoveState.values;
+    }
+    return this.memoizedValue(this.props.value, this.min, this.max);
+  }
   get min(): number {
     return this.props.min as number;
   }
@@ -337,12 +355,6 @@ class Eminus extends Component<Props, State> {
       return -1;
     }
     return this.activeIdx;
-  }
-  get value(): number[] {
-    if (this.state.isDragging) {
-      return this.mouseMoveState.values;
-    }
-    return this.normalizeValue(this.props.value);
   }
   get minDist(): number {
     if (!this.props.disableCross || !this.props.minDist) {
