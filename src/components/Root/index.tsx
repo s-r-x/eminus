@@ -179,6 +179,15 @@ class Eminus extends Component<Props, State> {
     }
   };
 
+  // lifecycle
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('touchmove', this.onMouseMove);
+    window.removeEventListener('mouseup', this.onMouseUp);
+    window.removeEventListener('touchend', this.onMouseUp);
+    document.removeEventListener('keydown', this.onKeyDown);
+  }
+
   // utils
   $findControlByIdx(idx: number): HTMLDivElement | null {
     return this.rootRef.current?.querySelector(`[data-idx="${idx}"]`) ?? null;
