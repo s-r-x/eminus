@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/s-r-x/eminus/compare/v1.0.8...v1.1.0) (2021-10-08)
+
+
+### Features
+
+* hideTrackProgress prop ([faae591](https://github.com/s-r-x/eminus/commit/faae5910efeb4f139d3ea8819afa1f0b96ce3a95))
+
 ## [1.0.8](https://github.com/s-r-x/eminus/compare/v1.0.7...v1.0.8) (2021-10-08)
 
 
