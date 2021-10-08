@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/s-r-x/eminus/compare/v1.0.6...v1.0.7) (2021-10-07)
+
+
+### Bug Fixes
+
+* detach all active event listeners on unmount if there are any ([e477903](https://github.com/s-r-x/eminus/commit/e47790311d2e98293063af93a77cfd3ac995febb))
+
 ## [1.0.6](https://github.com/s-r-x/eminus/compare/v1.0.5...v1.0.6) (2021-10-07)
 
 
