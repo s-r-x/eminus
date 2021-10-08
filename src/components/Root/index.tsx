@@ -245,23 +245,15 @@ class Eminus extends Component<Props, State> {
     const deadlockSwitchIdx = this.getNextIdxIfDeadlock(idx, dir);
     const isDeadlock = deadlockSwitchIdx !== -1;
     let bound = { idx: -1, value: 0 };
-    const boundIdx = isDeadlock ? deadlockSwitchIdx : idx + dir;
-    const potentialBound = {
-      idx: boundIdx,
-      value: value[boundIdx],
-    };
-    if (!isNil(potentialBound.value)) {
-      if (minDist) {
-        if (dir === -1) {
-          potentialBound.value += minDist;
-        } else if (dir === 1) {
-          potentialBound.value -= minDist;
-        }
-      }
-      if (dir === -1 && potentialBound.value >= nextValue) {
-        bound = potentialBound;
-      } else if (dir === 1 && potentialBound.value <= nextValue) {
-        bound = potentialBound;
+    const tempBoundIdx = isDeadlock ? deadlockSwitchIdx : idx + dir;
+    let tempBoundValue = value[tempBoundIdx];
+    if (!isNil(tempBoundValue)) {
+      tempBoundValue += dir === -1 ? minDist : -minDist;
+      if (
+        (dir === -1 && tempBoundValue >= nextValue) ||
+        (dir === 1 && tempBoundValue <= nextValue)
+      ) {
+        bound = { idx: tempBoundIdx, value: tempBoundValue };
       }
     }
     if (bound.idx !== -1) {
@@ -354,10 +346,11 @@ class Eminus extends Component<Props, State> {
     return [value[activeIdx]];
   }
   get minDist(): number {
-    if (!this.props.disableCross || !this.props.minDist) {
+    const dist = this.props.minDist;
+    if (!this.props.disableCross || !dist || dist < 0) {
       return 0;
     }
-    return this.props.minDist;
+    return dist;
   }
   get rootClassName(): string {
     return clsx(
