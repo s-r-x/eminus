@@ -40,6 +40,7 @@ export type RootProps = {
   min?: number;
   max?: number;
   hideTrack?: boolean;
+  hideTrackProgress?: boolean;
   disabled?: boolean;
   className?: string;
   style?: CSSProperties;

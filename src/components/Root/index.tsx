@@ -398,13 +398,15 @@ class Eminus extends Component<Props, State> {
         style={props.style}
         className={this.rootClassName}
       >
-        <Track
-          vertical={props.vertical}
-          min={min}
-          max={max}
-          hideTrack={props.hideTrack}
-          range={range}
-        />
+        {!props.hideTrack && (
+          <Track
+            vertical={props.vertical}
+            min={min}
+            max={max}
+            hideTrackProgress={props.hideTrackProgress}
+            range={range}
+          />
+        )}
         {!isEmpty(props.marks) && (
           <Marks
             vertical={props.vertical}

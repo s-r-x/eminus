@@ -3,7 +3,7 @@ import { RootProps } from '../../typings/root-props';
 import { Range } from '../../typings/shared';
 import { mapNumberToPercent } from '../../utils/map-number';
 
-type Props = Pick<RootProps, 'disabled' | 'hideTrack'> & {
+type Props = Pick<RootProps, 'disabled' | 'hideTrackProgress'> & {
   range: Range;
   vertical?: boolean;
   min: number;
@@ -26,12 +26,11 @@ class Track extends React.Component<Props> {
     };
   }
   render() {
-    if (this.props.hideTrack) {
-      return <div className="Eminus-track" />;
-    }
     return (
       <div className="Eminus-track">
-        <div className="Eminus-track-progress" style={this.progressStyle} />
+        {!this.props.hideTrackProgress && (
+          <div className="Eminus-track-progress" style={this.progressStyle} />
+        )}
       </div>
     );
   }
