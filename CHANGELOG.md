@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/s-r-x/eminus/compare/v1.0.7...v1.0.8) (2021-10-08)
+
+
+### Bug Fixes
+
+* make marks, ariaLabel, ariaLabelledBy and ariaDescribedBy props optional to prevent typing errors when styling with linaria ([51f129a](https://github.com/s-r-x/eminus/commit/51f129aacad4ad49964ccc96464e04ffc333b495))
+
 ## [1.0.7](https://github.com/s-r-x/eminus/compare/v1.0.6...v1.0.7) (2021-10-07)
 
 
