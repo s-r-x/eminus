@@ -1,33 +1,41 @@
-import React from 'react';
+import React, { Component, CSSProperties } from 'react';
 import { RootProps } from '../../typings/root-props';
 import { Range } from '../../typings/shared';
 import { mapNumberToPercent } from '../../utils/map-number';
 
-type Props = Pick<RootProps, 'disabled' | 'hideTrack'> & {
+type Props = Pick<RootProps, 'disabled' | 'hideTrack' | 'showTrackTooltip'> & {
   range: Range;
   vertical?: boolean;
   min: number;
   max: number;
 };
-const Track = ({ range, hideTrack, min, max, vertical }: Props) => {
-  if (hideTrack) {
-    return <div className="Eminus-track" />;
+
+class Track extends Component<Props> {
+  get range(): Range {
+    const { range, min, max } = this.props;
+    return [
+      mapNumberToPercent(range[0], min, max),
+      mapNumberToPercent(range[1], min, max),
+    ];
   }
-  const mappedRange = [
-    mapNumberToPercent(range[0], min, max),
-    mapNumberToPercent(range[1], min, max),
-  ];
-  return (
-    <div className="Eminus-track">
-      <div
-        className="Eminus-track-progress"
-        style={{
-          [vertical ? 'top' : 'left']: mappedRange[0] + '%',
-          [vertical ? 'height' : 'width']:
-            mappedRange[1] - mappedRange[0] + '%',
-        }}
-      />
-    </div>
-  );
-};
+  get progressStyle(): CSSProperties {
+    const { range } = this;
+    return {
+      [this.props.vertical ? 'top' : 'left']: range[0] + '%',
+      [this.props.vertical ? 'height' : 'width']: range[1] - range[0] + '%',
+    };
+  }
+  render() {
+    const { progressStyle } = this;
+    if (this.props.hideTrack) {
+      return <div className="Eminus-track" />;
+    }
+    return (
+      <div className="Eminus-track">
+        <div className="Eminus-track-progress" style={progressStyle} />
+      </div>
+    );
+  }
+}
+
 export default Track;
