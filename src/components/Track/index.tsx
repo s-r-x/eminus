@@ -1,16 +1,16 @@
-import React, { Component, CSSProperties } from 'react';
+import React from 'react';
 import { RootProps } from '../../typings/root-props';
 import { Range } from '../../typings/shared';
 import { mapNumberToPercent } from '../../utils/map-number';
 
-type Props = Pick<RootProps, 'disabled' | 'hideTrack' | 'showTrackTooltip'> & {
+type Props = Pick<RootProps, 'disabled' | 'hideTrack'> & {
   range: Range;
   vertical?: boolean;
   min: number;
   max: number;
 };
 
-class Track extends Component<Props> {
+class Track extends React.Component<Props> {
   get range(): Range {
     const { range, min, max } = this.props;
     return [
@@ -18,7 +18,7 @@ class Track extends Component<Props> {
       mapNumberToPercent(range[1], min, max),
     ];
   }
-  get progressStyle(): CSSProperties {
+  get progressStyle(): React.CSSProperties {
     const { range } = this;
     return {
       [this.props.vertical ? 'top' : 'left']: range[0] + '%',
@@ -26,13 +26,12 @@ class Track extends Component<Props> {
     };
   }
   render() {
-    const { progressStyle } = this;
     if (this.props.hideTrack) {
       return <div className="Eminus-track" />;
     }
     return (
       <div className="Eminus-track">
-        <div className="Eminus-track-progress" style={progressStyle} />
+        <div className="Eminus-track-progress" style={this.progressStyle} />
       </div>
     );
   }

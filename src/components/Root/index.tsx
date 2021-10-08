@@ -367,6 +367,14 @@ class Eminus extends Component<Props, State> {
     }
     return this.props.minDist;
   }
+  get rootClassName(): string {
+    return clsx(
+      'Eminus',
+      this.props.disabled && 'Eminus--disabled',
+      this.props.vertical && 'Eminus--vertical',
+      this.props.className
+    );
+  }
   render() {
     const { props, state, tooltipIdx, value, min, max, step } = this;
     const range: Range = [
@@ -379,12 +387,7 @@ class Eminus extends Component<Props, State> {
         onMouseDown={this.onRootMouseDown}
         ref={this.rootRef}
         style={props.style}
-        className={clsx(
-          'Eminus',
-          props.disabled && 'Eminus--disabled',
-          props.vertical && 'Eminus--vertical',
-          props.className
-        )}
+        className={this.rootClassName}
       >
         <Track
           vertical={props.vertical}

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import {
   ControlBlurFn,
   ControlFocusFn,
@@ -27,7 +27,7 @@ export type Props = {
   isActive: boolean;
 };
 
-class Control extends PureComponent<Props> {
+class Control extends React.PureComponent<Props> {
   onBlur: React.FocusEventHandler<HTMLDivElement> = e => {
     this.props.onBlur(e, this.props.idx);
   };
@@ -42,11 +42,8 @@ class Control extends PureComponent<Props> {
     e.stopPropagation();
     this.props.onPointerDown(e, this.props.idx);
   };
-  get value(): number {
-    return this.props.value;
-  }
   render() {
-    const { props, value } = this;
+    const { props } = this;
     return (
       <div
         aria-valuetext={props.ariaValueText}
@@ -56,7 +53,7 @@ class Control extends PureComponent<Props> {
         aria-describedby={props.ariaDescribedBy}
         aria-valuemin={props.min}
         aria-valuemax={props.max}
-        aria-valuenow={value}
+        aria-valuenow={props.value}
         aria-orientation={props.vertical ? 'vertical' : 'horizontal'}
         onTouchStart={this.onPointerDown}
         onMouseDown={this.onPointerDown}
@@ -66,7 +63,7 @@ class Control extends PureComponent<Props> {
         onMouseLeave={props.onMouseLeave}
         style={{
           [props.vertical ? 'top' : 'left']:
-            mapNumberToPercent(value, props.min, props.max) + '%',
+            mapNumberToPercent(props.value, props.min, props.max) + '%',
           pointerEvents:
             props.disabled || (props.isDragging && !props.isActive)
               ? 'none'
