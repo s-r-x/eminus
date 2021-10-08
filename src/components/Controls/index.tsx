@@ -7,27 +7,27 @@ import {
 import { RootProps } from '../../typings/root-props';
 import Control from './Control';
 
-type Props = Pick<
-  RootProps,
-  | 'disabled'
-  | 'ariaLabel'
-  | 'ariaLabelledBy'
-  | 'ariaDescribedBy'
-  | 'ariaValueTextFormatter'
-> & {
-  vertical?: boolean;
-  min: number;
-  max: number;
-  step: number;
-  activeIdx: number;
-  isDragging: boolean;
-  onMouseEnter: (idx: number) => void;
-  onMouseLeave: () => void;
-  onPointerDown: PointerDownFn;
-  onBlur: ControlBlurFn;
-  onFocus: ControlFocusFn;
-  values: number[];
+const defaultProps: Required<
+  Pick<RootProps, 'ariaLabel' | 'ariaLabelledBy' | 'ariaDescribedBy'>
+> = {
+  ariaLabel: [],
+  ariaLabelledBy: [],
+  ariaDescribedBy: [],
 };
+type Props = typeof defaultProps &
+  Pick<RootProps, 'disabled' | 'ariaValueTextFormatter' | 'vertical'> & {
+    min: number;
+    max: number;
+    step: number;
+    activeIdx: number;
+    isDragging: boolean;
+    onMouseEnter: (idx: number) => void;
+    onMouseLeave: () => void;
+    onPointerDown: PointerDownFn;
+    onBlur: ControlBlurFn;
+    onFocus: ControlFocusFn;
+    values: number[];
+  };
 
 const Controls = (props: Props) => {
   return (
@@ -60,4 +60,6 @@ const Controls = (props: Props) => {
     </div>
   );
 };
+Controls.defaultProps = defaultProps;
+
 export default Controls;

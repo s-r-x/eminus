@@ -31,7 +31,7 @@ export type RootProps = {
   onBlur?: ControlBlurFn;
   onFocus?: ControlFocusFn;
   onPointerDown?: PointerDownFn;
-  marks: Mark[];
+  marks?: Mark[];
   minDist?: number;
   markLabelFormatter?: MarkLabelFormatter;
   disableCross?: boolean;
@@ -43,9 +43,9 @@ export type RootProps = {
   disabled?: boolean;
   className?: string;
   style?: CSSProperties;
-  ariaLabel: string[];
-  ariaLabelledBy: string[];
-  ariaDescribedBy: string[];
+  ariaLabel?: string[];
+  ariaLabelledBy?: string[];
+  ariaDescribedBy?: string[];
   ariaValueTextFormatter?: AriaValueTextFormatter;
   tooltipFormatter?: TooltipFormatter;
   tooltipRenderer?: TooltipRenderer;

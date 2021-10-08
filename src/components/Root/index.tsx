@@ -36,10 +36,6 @@ class Eminus extends Component<Props, State> {
     max: 100,
     step: 1,
     disableCross: false,
-    marks: [],
-    ariaLabel: [],
-    ariaLabelledBy: [],
-    ariaDescribedBy: [],
   };
   state: State = {
     disableFocusTooltip: false,
