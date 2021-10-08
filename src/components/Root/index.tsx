@@ -352,7 +352,7 @@ class Eminus extends Component<Props, State> {
     }
     return this.state.activeIdx;
   }
-  get tooltipIdx(): number {
+  get activeTooltipIdx(): number {
     const { state } = this;
     if (this.props.hideTooltip) return -1;
     else if (state.hoverIdx !== -1) return state.hoverIdx;
@@ -360,6 +360,15 @@ class Eminus extends Component<Props, State> {
       return -1;
     }
     return this.activeIdx;
+  }
+  get tooltipValues(): number[] {
+    const { value } = this;
+    if (this.props.alwaysShowTooltip) {
+      return value;
+    }
+    const activeIdx = this.activeTooltipIdx;
+    if (activeIdx === -1) return [];
+    return [value[activeIdx]];
   }
   get minDist(): number {
     if (!this.props.disableCross || !this.props.minDist) {
@@ -376,7 +385,7 @@ class Eminus extends Component<Props, State> {
     );
   }
   render() {
-    const { props, state, tooltipIdx, value, min, max, step } = this;
+    const { props, state, value, min, max, step, tooltipValues } = this;
     const range: Range = [
       value.length <= 1 ? 0 : Math.min(...value),
       Math.max(...value),
@@ -407,31 +416,17 @@ class Eminus extends Component<Props, State> {
             marks={props.marks}
           />
         )}
-        {props.alwaysShowTooltip && (
-          <>
-            {value.map((value, idx) => (
-              <Tooltip
-                key={idx}
-                value={value}
-                tooltipFormatter={props.tooltipFormatter}
-                vertical={props.vertical}
-                tooltipRenderer={props.tooltipRenderer}
-                min={min}
-                max={max}
-              />
-            ))}
-          </>
-        )}
-        {tooltipIdx !== -1 && !props.alwaysShowTooltip && (
+        {tooltipValues.map((value, idx) => (
           <Tooltip
-            value={value[tooltipIdx]}
+            key={idx}
+            value={value}
             tooltipFormatter={props.tooltipFormatter}
             vertical={props.vertical}
             tooltipRenderer={props.tooltipRenderer}
             min={min}
             max={max}
           />
-        )}
+        ))}
         <Controls
           min={min}
           max={max}
