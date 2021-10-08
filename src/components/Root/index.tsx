@@ -20,6 +20,9 @@ import { clamp } from '../../utils/clamp';
 import memoize from 'memoize-one';
 import { isArraysEq } from '../../utils/is-arrays-eq';
 
+type TMemoizedArgs = [number[], number, number];
+type MoveDir = -1 | 1;
+type Props = RootProps;
 type State = {
   isDragging: boolean;
   activeIdx: number;
@@ -27,8 +30,6 @@ type State = {
   isFocused: boolean;
   disableFocusTooltip: boolean;
 };
-type TMemoizedArgs = [number[], number, number];
-type Props = RootProps;
 
 class Eminus extends Component<Props, State> {
   static defaultProps: Omit<Props, 'value' | 'onChange'> = {
@@ -240,15 +241,13 @@ class Eminus extends Component<Props, State> {
     if (value.length <= 1) {
       return this.generateNewValueAndCommit(nextValue, idx);
     }
-    const dir = nextValue - currentValue > 0 ? 1 : -1;
-    const { isDeadLock, idxToSwitch: deadLockSwitchIdx } = this.genDeadLockMeta(
-      idx,
-      dir
-    );
+    const dir: MoveDir = nextValue - currentValue > 0 ? 1 : -1;
+    const deadlockSwitchIdx = this.getNextIdxIfDeadlock(idx, dir);
+    const isDeadlock = deadlockSwitchIdx !== -1;
     let bound = { idx: -1, value: 0 };
-    const boundIdx = idx + dir;
+    const boundIdx = isDeadlock ? deadlockSwitchIdx : idx + dir;
     const potentialBound = {
-      idx: isDeadLock ? (deadLockSwitchIdx as number) : idx + dir,
+      idx: boundIdx,
       value: value[boundIdx],
     };
     if (!isNil(potentialBound.value)) {
@@ -266,7 +265,7 @@ class Eminus extends Component<Props, State> {
       }
     }
     if (bound.idx !== -1) {
-      if (disableCross && !isDeadLock) {
+      if (disableCross && !isDeadlock) {
         this.generateNewValueAndCommit(bound.value, idx);
       } else {
         const newValue = [...value];
@@ -283,42 +282,26 @@ class Eminus extends Component<Props, State> {
       this.generateNewValueAndCommit(nextValue, idx);
     }
   }
-  genDeadLockMeta(
-    idx: number,
-    dir: -1 | 1
-  ): {
-    isDeadLock: boolean;
-    idxToSwitch?: number;
-  } {
-    const { disableCross } = this.props;
-    const currentValue = this.value[idx];
-    const isCurrentAtMin = currentValue === this.min;
-    const isCurrentAtMax = currentValue === this.max;
+  getNextIdxIfDeadlock(idx: number, dir: MoveDir): number {
+    const values = this.value;
+    const current = values[idx];
     const maybeDeadLock =
-      disableCross &&
-      ((dir === 1 && isCurrentAtMin) || (dir === -1 && isCurrentAtMax));
+      values.length > 1 &&
+      this.props.disableCross &&
+      ((dir === 1 && current === this.min) ||
+        (dir === -1 && current === this.max));
     if (!maybeDeadLock) {
-      return { isDeadLock: false };
+      return -1;
     }
-    const switchCandidates = this.value
-      .map((value, idx) => ({
-        value,
-        idx,
-      }))
-      .filter(
-        d => d.value === currentValue && (dir === 1 ? d.idx > idx : d.idx < idx)
-      )
-      .map(({ idx }) => idx);
-    if (isEmpty(switchCandidates)) {
-      return { isDeadLock: false };
-    }
-    return {
-      isDeadLock: true,
-      idxToSwitch:
-        dir === 1
-          ? Math.max(...switchCandidates)
-          : Math.min(...switchCandidates),
-    };
+    return values[dir === 1 ? 'reduce' : 'reduceRight'](
+      (acc, value, nextIdx) => {
+        if (nextIdx === idx || value !== current) return acc;
+        else if (dir === 1 && nextIdx > idx) return nextIdx;
+        else if (dir === -1 && nextIdx < idx) return nextIdx;
+        return acc;
+      },
+      -1
+    );
   }
 
   // getters
