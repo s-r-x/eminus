@@ -357,6 +357,7 @@ class Eminus extends Component<Props, State> {
       'Eminus',
       this.props.disabled && 'Eminus--disabled',
       this.props.vertical && 'Eminus--vertical',
+      this.state.isDragging && 'Eminus--dragging',
       this.props.className
     );
   }

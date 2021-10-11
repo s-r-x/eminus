@@ -3,8 +3,8 @@ import {
   ControlBlurFn,
   ControlFocusFn,
   PointerDownFn,
-} from '../../../typings/event-fns';
-import { mapNumberToPercent } from '../../../utils/map-number';
+} from '../../typings/event-fns';
+import { mapNumberToPercent } from '../../utils/map-number';
 
 export type Props = {
   value: number;

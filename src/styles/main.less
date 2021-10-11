@@ -23,6 +23,7 @@ body.EminusGlobal {
   --tooltip-offset: var(--control-size);
 
   position: relative;
+  cursor: pointer;
   height: var(--root-height);
 
   &-track {
@@ -64,7 +65,6 @@ body.EminusGlobal {
   }
 
   &-mark {
-    cursor: pointer;
     &-value {
       box-sizing: border-box;
       position: absolute;
@@ -157,6 +157,9 @@ body.EminusGlobal {
         transform: translate(-25%, -50%) rotate(-90deg);
       }
     }
+  }
+  &--dragging {
+    cursor: inherit;
   }
   &--disabled {
     pointer-events: none;
