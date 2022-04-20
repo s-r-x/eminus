@@ -108,8 +108,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "clsx": "^1.1.1",
-    "memoize-one": "^5.2.1"
+    "clsx": "^1.1.1"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0",

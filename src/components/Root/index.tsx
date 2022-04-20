@@ -17,10 +17,8 @@ import {
 import { sortArray } from '../../utils/sort-array';
 import { isNil } from '../../utils/is-nil';
 import { clamp } from '../../utils/clamp';
-import memoize from 'memoize-one';
 import { isArraysEq } from '../../utils/is-arrays-eq';
 
-type TMemoizedArgs = [number[], number, number];
 type MoveDir = -1 | 1;
 type Props = RootProps;
 type State = {
@@ -227,7 +225,7 @@ class Eminus extends Component<Props, State> {
   };
   commitNewValue(value: number[]) {
     const oldValue = this.value;
-    const newValue = this.memoizedValue(value, this.min, this.max);
+    const newValue = this.normalizeValue(value, this.min, this.max);
     if (!isArraysEq(oldValue, newValue)) {
       this.mouseMoveState.values = newValue;
       this.props.onChange(newValue);
@@ -296,21 +294,15 @@ class Eminus extends Component<Props, State> {
     );
   }
 
+  normalizeValue(value: number[], min: number, max: number) {
+    return sortArray(value.map(n => clamp(n, min, max)));
+  }
   // getters
-  memoizedValue = memoize(
-    (value: number[], min: number, max: number) =>
-      sortArray(value.map(n => clamp(n, min, max))),
-    // @ts-ignore
-    (oldArgs: TMemoizedArgs, lastArgs: TMemoizedArgs) =>
-      isArraysEq(oldArgs[0], lastArgs[0]) &&
-      oldArgs[1] === lastArgs[1] &&
-      oldArgs[2] === lastArgs[2]
-  );
   get value(): number[] {
     if (this.state.isDragging) {
       return this.mouseMoveState.values;
     }
-    return this.memoizedValue(this.props.value, this.min, this.max);
+    return this.normalizeValue(this.props.value, this.min, this.max);
   }
   get min(): number {
     return this.props.min as number;
