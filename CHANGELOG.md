@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/s-r-x/eminus/compare/v1.1.1...v1.1.2) (2022-04-20)
+
+
+### Bug Fixes
+
+* remove unnecessary memoization ([47812d7](https://github.com/s-r-x/eminus/commit/47812d7ebcab23e158e640388ab27f4c5f75bf82))
+
 ## [1.1.1](https://github.com/s-r-x/eminus/compare/v1.1.0...v1.1.1) (2021-10-11)
 
 # [1.1.0](https://github.com/s-r-x/eminus/compare/v1.0.8...v1.1.0) (2021-10-08)
